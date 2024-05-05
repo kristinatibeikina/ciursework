@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\PlaceTourController;
+use App\Http\Controllers\API\GuideController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,11 @@ Route::get('/place',[PlaceTourController::class, 'index']);//Вывод всех
 
 Route::get('/place/{id}',[PlaceTourController::class, 'show']);//вывод города и всех туров относящихся к нему
 
-Route::post('/place/create',[PlaceTourController::class, 'store']);  //Создание нового город
+Route::post('/place/create',[PlaceTourController::class, 'store']);  //Создание нового города
 
+//Guide
 
+Route::post('/guide/create',[GuideController::class, 'store']);  //Создание нового гида
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
 
