@@ -41,7 +41,7 @@ class PlaceTourController extends Controller
      */
     public function show($id)
     {
-        return new PlaceTourResource(Place_tour::with('list')->findOrFail($id));
+        return new PlaceTourResource(Place_tour::findOrFail($id));
     }
 
     /**

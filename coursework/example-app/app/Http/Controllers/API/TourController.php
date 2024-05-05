@@ -54,9 +54,16 @@ class TourController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TourStoreRequest $request, $id)
     {
-        //
+        // Получаем экземпляр модели Tour
+        $tour =  new TourResource(Tour::findOrFail($id));
+
+        // Обновляем атрибуты модели с использованием данных из запроса
+        $tour->update($request->validated());
+
+        // Возвращаем успешный ответ или что-то еще по вашему усмотрению
+        return response()->json(['message' => 'Данные тура изменены', 'tour'=>$tour], 200);
     }
 
     /**

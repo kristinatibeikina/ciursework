@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\PlaceTourController;
 use App\Http\Controllers\API\GuideController;
+use App\Http\Controllers\API\FeedbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,8 @@ Route::get('/tour/{id}',[TourController::class, 'show']);
 
 Route::post('/tour/create',[TourController::class, 'store']);   //Создание нового тура
 
+Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изменение тура
+
 //Place_tour
 
 Route::get('/place',[PlaceTourController::class, 'index']);//Вывод всех городов
@@ -46,6 +49,10 @@ Route::post('/place/create',[PlaceTourController::class, 'store']);  //Созд�
 //Guide
 
 Route::post('/guide/create',[GuideController::class, 'store']);  //Создание нового гида
+
+//Feedback
+
+Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
 

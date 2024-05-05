@@ -17,7 +17,6 @@ class FeedbackResource extends JsonResource
         return [
             'count_stars'=>$this->count_stars,
             'comment'=>$this->comment,
-            'description'=>$this->description,
             'date_published'=>$this->date_published,
         ];
     }

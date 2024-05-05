@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FeedbackResource;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\FeedbackStoreRequest;
 class FeedbackController extends Controller
 {
     /**
@@ -25,9 +25,11 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FeedbackStoreRequest $request)
     {
-        //
+        $created_feedback = Feedback::create($request->validated());
+
+        return new FeedbackResource($created_feedback);
     }
 
     /**

@@ -9,5 +9,11 @@ class Feedback extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'count_stars',
+        'comment',
+        'date_published'
+
+    ];
 
 }
