@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Place_tour extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'name',
+        'id_guide'
+    ];
+
 
     public function list()
     {

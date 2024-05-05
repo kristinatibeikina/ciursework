@@ -17,7 +17,7 @@ class PlaceTourResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'description'=>$this->description,
+            'id_guide'=>$this->id_guide,
             'list'=>TourResource::collection($this->list),
         ];
     }

@@ -9,6 +9,20 @@ class Tour extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'name',
+        'description',
+        'prise',
+        'date_start',
+        'date_end',
+        'legal_age',
+        'id_housing',
+        'place_tour_id',
+        'id_status',
+        //'id_feedback'
+    ];
+
+
     public function list()
     {
         return $this->only(Feedback::all());

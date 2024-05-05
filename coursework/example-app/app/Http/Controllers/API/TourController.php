@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TourStoreRequest;
 use App\Http\Resources\TourResource;
 use Illuminate\Http\Request;
 use App\Models\Tour;
@@ -24,9 +25,11 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TourStoreRequest $request)
     {
-       //
+       $create_tour=Tour::create($request->validated());
+
+       return new TourResource($create_tour);
     }
 
     /**

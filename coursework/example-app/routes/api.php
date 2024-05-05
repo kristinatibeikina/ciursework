@@ -32,11 +32,16 @@ Route::get('/tour',[TourController::class, 'index']);
 
 Route::get('/tour/{id}',[TourController::class, 'show']);
 
+Route::post('/tour/create',[TourController::class, 'store']);   //Создание нового тура
+
 //Place_tour
 
 Route::get('/place',[PlaceTourController::class, 'index']);//Вывод всех городов
 
 Route::get('/place/{id}',[PlaceTourController::class, 'show']);//вывод города и всех туров относящихся к нему
+
+Route::post('/place/create',[PlaceTourController::class, 'store']);  //Создание нового город
+
 
 
 Route::group(['middleware'=>['auth:sanctum']],function (){

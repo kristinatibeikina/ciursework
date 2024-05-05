@@ -22,7 +22,7 @@ class TourResource extends JsonResource
             'date_start'=>$this->date_start,
             'date_end'=>$this->date_end,
             'legal_age'=>$this->legal_age,
-            'housing'=>$this->housing,
+            'id_housing'=>$this->id_housing
         ];
     }
 }

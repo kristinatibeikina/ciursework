@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlaceTourStoreRequest;
 use App\Http\Resources\PlaceTourResource;
 use App\Models\Place_tour;
 use Illuminate\Http\Request;
@@ -25,9 +26,11 @@ class PlaceTourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlaceTourStoreRequest $request)
     {
-        //
+        $create_place=Place_tour::create($request->validated());
+
+        return new PlaceTourResource($create_place);
     }
 
     /**
