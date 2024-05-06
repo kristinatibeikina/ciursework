@@ -52,9 +52,16 @@ class GuideController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuideStoreRequest $request, $id)
     {
-        //
+        // Получаем экземпляр модели Tour
+        $guide =  new GuideResource(Guide::findOrFail($id));
+
+        // Обновляем атрибуты модели с использованием данных из запроса
+        $guide->update($request->validated());
+
+        // Возвращаем успешный ответ или что-то еще по вашему усмотрению
+        return response()->json(['message' => 'Данные гида изменены', 'guide'=>$guide], 200);
     }
 
     /**
@@ -65,6 +72,11 @@ class GuideController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $guide =  new GuideResource(Guide::findOrFail($id));
+
+        $guide->delete();
+
+        return response(null, 204);
     }
 }

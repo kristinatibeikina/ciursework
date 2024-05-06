@@ -50,6 +50,10 @@ Route::post('/place/create',[PlaceTourController::class, 'store']);  //Созд�
 
 Route::post('/guide/create',[GuideController::class, 'store']);  //Создание нового гида
 
+Route::put('/guide/update/{id}',[GuideController::class, 'update']);  //Изиенение данных гида
+
+Route::delete('/guide/delete/{id}',[GuideController::class, 'destroy']);  //Удаление гида
+
 //Feedback
 
 Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
