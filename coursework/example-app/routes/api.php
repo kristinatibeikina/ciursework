@@ -38,6 +38,8 @@ Route::post('/tour/create',[TourController::class, 'store']);   //Создани
 
 Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изменение тура
 
+Route::delete('/tour/delete/{id}',[TourController::class, 'destroy']);   //Удаление тура
+
 //Place_tour
 
 Route::get('/place',[PlaceTourController::class, 'index']);//Вывод всех городов

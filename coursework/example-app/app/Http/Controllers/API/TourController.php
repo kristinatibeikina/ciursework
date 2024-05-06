@@ -74,6 +74,11 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $guide =  new TourResource(Tour::findOrFail($id));
+
+        $guide->delete();
+
+        return response(null, 204);
     }
 }
