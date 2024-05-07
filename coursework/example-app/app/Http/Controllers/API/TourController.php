@@ -95,9 +95,22 @@ class TourController extends Controller
 
     public function filter(Request $request)
     {
-        $status = $request->get('status');
+        $status = $request->input('status');
+        $date = $request->input('date');
 
-        $tours = Tour::where('id_status', $status)->get();
+        $query = Tour::query();
+
+        if ($status) {
+            $query->where('id_status', $status);
+        }
+
+        if ($date) {
+            $formattedDate = Carbon::parse($date)->toDateString();
+            $query->whereDate('date_start', $formattedDate);
+        }
+
+        $tours = $query->get();
+
         return response()->json(['tours' => $tours]);
     }
 }
