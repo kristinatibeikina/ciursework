@@ -7,6 +7,8 @@ use App\Http\Requests\TourStoreRequest;
 use App\Http\Resources\TourResource;
 use Illuminate\Http\Request;
 use App\Models\Tour;
+use Illuminate\Support\Carbon;
+
 class TourController extends Controller
 {
     /**
@@ -89,5 +91,13 @@ class TourController extends Controller
 
         $results = Tour::where('name', 'like', '%' . $query . '%')->get();
         return response()->json($results);
+    }
+
+    public function filter(Request $request)
+    {
+        $status = $request->get('status');
+
+        $tours = Tour::where('id_status', $status)->get();
+        return response()->json(['tours' => $tours]);
     }
 }

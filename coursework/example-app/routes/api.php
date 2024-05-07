@@ -42,7 +42,10 @@ Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изме�
 
 Route::delete('/tour/delete/{id}',[TourController::class, 'destroy']);   //Удаление тура
 
-Route::get('/search',[TourController::class, 'search']);
+Route::get('/search',[TourController::class, 'search']);  //Поиск по названию тура (в форме передовать id= 'query' );
+
+Route::get('/filter',[TourController::class, 'filter']);  //;
+
 
 //Place_tour
 
