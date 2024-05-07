@@ -81,4 +81,13 @@ class TourController extends Controller
 
         return response(null, 204);
     }
+
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+
+        $results = Tour::where('name', 'like', '%' . $query . '%')->get();
+        return response()->json($results);
+    }
 }

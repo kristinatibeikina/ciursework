@@ -30,6 +30,7 @@ Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
 
 
+
 //Tour
 Route::get('/tour',[TourController::class, 'index']);
 
@@ -40,6 +41,8 @@ Route::post('/tour/create',[TourController::class, 'store']);   //Создани
 Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изменение тура
 
 Route::delete('/tour/delete/{id}',[TourController::class, 'destroy']);   //Удаление тура
+
+Route::get('/search',[TourController::class, 'search']);
 
 //Place_tour
 
