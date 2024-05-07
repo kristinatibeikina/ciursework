@@ -18,10 +18,7 @@ return new class extends Migration
             $table->string('surname');
             $table->string('name');
             $table->string('patronymic');
-            $table->string('login');
-            $table->integer('tel');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email');
             $table->string('password');
             $table->integer('id_role');
             $table->rememberToken();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('count_stars');
             $table->text('comment');
             $table->date('date_published');
+            $table->integer('id_user');
             $table->timestamps();
         });
     }

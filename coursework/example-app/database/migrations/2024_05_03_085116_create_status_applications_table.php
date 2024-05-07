@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('status_applications', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->string('name');
             $table->timestamps();
         });
     }

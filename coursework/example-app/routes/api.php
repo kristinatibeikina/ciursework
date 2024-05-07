@@ -5,6 +5,7 @@ use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\PlaceTourController;
 use App\Http\Controllers\API\GuideController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\BookedTourController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,16 @@ Route::delete('/guide/delete/{id}',[GuideController::class, 'destroy']);  //Уд
 //Feedback
 
 Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
+
+
+//Booked_tours
+
+
+Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров
+
+Route::post('/booked/create',[BookedTourController::class, 'show']);  //Создание заказа
+
+Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение данных заказа
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
 

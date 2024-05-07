@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('count_adults');
             $table->text('wishes');
             $table->text('response');
+            $table->string('tel');
+            $table->string('email');
             $table->integer('id_status_application');
             $table->integer('id_user');
             $table->timestamps();

@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('place_tours', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->string('photo');
+            $table->integer('id_housing');
             $table->integer('id_guide');
             $table->timestamps();
         });

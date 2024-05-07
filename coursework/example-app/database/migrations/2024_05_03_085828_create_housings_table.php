@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('housings', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('address');
-            $table->text('description');
+            $table->string('name');
+            $table->string('address');
             $table->timestamps();
         });
     }
