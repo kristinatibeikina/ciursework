@@ -17,6 +17,7 @@ class Tour extends Model
         'date_end',
         'legal_age',
         'id_housing',
+        'photo',
         'place_tour_id',
         'id_status',
         //'id_feedback'

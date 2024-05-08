@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Housing extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'name',
+        'photo',
+        'address',
+        'id_region',
+        'description',
+    ];
 }

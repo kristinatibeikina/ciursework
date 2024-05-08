@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('photo');
             $table->string('address');
             $table->string('description');
-            $table->integer('id_city');
+            $table->integer('id_region');
             $table->timestamps();
         });
     }

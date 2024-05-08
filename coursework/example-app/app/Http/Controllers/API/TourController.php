@@ -120,4 +120,6 @@ class TourController extends Controller
 
         return response()->json(['tours' => $tours]);
     }
+
+
 }

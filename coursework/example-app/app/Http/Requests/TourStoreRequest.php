@@ -23,16 +23,40 @@ class TourStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'=>'required|unique:tours,name',
-            'description'=>'required',
-            'price'=>'required',
-            'date_start'=>'required',
-            'date_end'=>'required',
-            'legal_age'=>'required',
-            'id_housing'=>'required',
-            'place_tour_id'=>'required',
-            'id_status'=>'required',
+        if(request()->isMethod('POST')){
+            return [
+                'name'=>'required|unique:tours,name',
+                'description'=>'required|string',
+                'price'=>'required',
+                'date_start'=>'required',
+                'date_end'=>'required',
+                'legal_age'=>'required',
+                'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'id_housing'=>'required',
+                'place_tour_id'=>'required',
+                'id_status'=>'required',
+            ];
+        }else{
+            return [
+                'name'=>'required|unique:tours,name',
+                'description'=>'required|string',
+                'price'=>'required',
+                'date_start'=>'required',
+                'date_end'=>'required',
+                'legal_age'=>'required',
+                'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'id_housing'=>'required',
+                'place_tour_id'=>'required',
+                'id_status'=>'required',
+            ];
+        }
+
+    }
+    public function messages()
+    {
+        return[
+            'name.required'=>'Название обязательно для ввода',
+            'description.required'=>'Описание обязательно для ввода)'
         ];
     }
 }

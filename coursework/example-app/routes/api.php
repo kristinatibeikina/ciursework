@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\HousingTourController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\PlaceTourController;
 use App\Http\Controllers\API\GuideController;
@@ -47,6 +48,7 @@ Route::get('/search',[TourController::class, 'search']);  //Поиск по на
 Route::get('/filter',[TourController::class, 'filter']);  //Фильтрация в форме передовать date_start status
 
 
+
 //Place_tour
 
 Route::get('/place',[PlaceTourController::class, 'index']);//Вывод всех городов
@@ -76,6 +78,13 @@ Route::get('/booked',[BookedTourController::class, 'index']);  //Отображ�
 Route::post('/booked/create',[BookedTourController::class, 'show']);  //Создание заказа
 
 Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение данных заказа
+
+
+//Housing
+
+Route::post('/housing/photo',[HousingTourController::class, 'store']);  //Загрузка фото
+
+Route::get('/housing',[HousingTourController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
 
