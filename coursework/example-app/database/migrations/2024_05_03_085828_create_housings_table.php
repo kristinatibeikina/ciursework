@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('housings', function (Blueprint $table) {
+        Schema::create('housing', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('photo');
             $table->string('address');
+            $table->string('description');
+            $table->integer('id_city');
             $table->timestamps();
         });
     }

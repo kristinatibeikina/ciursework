@@ -26,7 +26,7 @@ class TourStoreRequest extends FormRequest
         return [
             'name'=>'required|unique:tours,name',
             'description'=>'required',
-            'prise'=>'required',
+            'price'=>'required',
             'date_start'=>'required',
             'date_end'=>'required',
             'legal_age'=>'required',

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('email');
             $table->integer('id_status_application');
             $table->integer('id_user');
+            $table->integer('id_employees');
             $table->timestamps();
         });
     }

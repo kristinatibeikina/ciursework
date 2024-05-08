@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('comment');
             $table->date('date_published');
             $table->integer('id_user');
+            $table->integer('id_tour');
             $table->timestamps();
         });
     }

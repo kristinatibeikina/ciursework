@@ -12,7 +12,7 @@ class Tour extends Model
     protected $fillable=[
         'name',
         'description',
-        'prise',
+        'price',
         'date_start',
         'date_end',
         'legal_age',

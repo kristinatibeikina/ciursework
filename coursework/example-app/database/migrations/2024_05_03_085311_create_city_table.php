@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('place_tours', function (Blueprint $table) {
+        Schema::create('region', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->string('photo');
-            $table->integer('id_housing');
-            $table->integer('id_guide');
             $table->timestamps();
         });
     }

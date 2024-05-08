@@ -96,17 +96,24 @@ class TourController extends Controller
     public function filter(Request $request)
     {
         $status = $request->input('status');
-        $date = $request->input('date');
+        $date_start = $request->input('date_tart');
+        $min_price = $request->input('min_price');
+        $max_price = $request->input('max_price');
+
 
         $query = Tour::query();
 
         if ($status) {
             $query->where('id_status', $status);
         }
+        if ($max_price||$min_price ) {
+            $query->whereBetween('price', [$min_price, $max_price])->get();
+        }
 
-        if ($date) {
-            $formattedDate = Carbon::parse($date)->toDateString();
-            $query->whereDate('date_start', $formattedDate);
+
+        if ($date_start) {
+            $date_start = Carbon::parse($date_start)->toDateString();
+            $query->whereDate('date_start', $date_start);
         }
 
         $tours = $query->get();

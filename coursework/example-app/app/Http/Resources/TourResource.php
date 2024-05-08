@@ -18,7 +18,7 @@ class TourResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'description'=>$this->description,
-            'prise'=>$this->prise,
+            'price'=>$this->price,
             'date_start'=>$this->date_start,
             'date_end'=>$this->date_end,
             'legal_age'=>$this->legal_age,
