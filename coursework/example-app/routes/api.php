@@ -22,10 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Защищенный маршрут для получения информации о пользователе
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 //Auth
 Route::post('/register',[AuthController::class, 'register']);
 
@@ -37,12 +34,6 @@ Route::post('/login',[AuthController::class, 'login']);
 Route::get('/tour',[TourController::class, 'index']); //Вывод всеъх туров  *
 
 Route::get('/tour/{id}',[TourController::class, 'show']); //Вывод одного тура *
-
-Route::post('/tour/create',[TourController::class, 'store']);   //Создание нового тура  *
-
-Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изменение тура   *
-
-Route::delete('/tour/delete/{id}',[TourController::class, 'destroy']);   //Удаление тура  *
 
 Route::get('/search',[TourController::class, 'search']);  //Поиск по названию тура (в форме передовать id= 'query' );  *
 
@@ -56,7 +47,7 @@ Route::get('/region',[RegionController::class, 'index']);//Вывод всех �
 
 Route::get('/region/{id}',[RegionController::class, 'show']);//вывод города
 
-Route::post('/region/create',[RegionController::class, 'store']);  //Создание нового города
+
 
 
 
@@ -64,51 +55,75 @@ Route::post('/region/create',[RegionController::class, 'store']);  //Созда�
 
 Route::get('/guide',[GuideController::class, 'index']);  //Просмотр всех гидов  *
 
-Route::post('/guide/create',[GuideController::class, 'store']);  //Создание нового гида  *
-
-Route::get('/guide/{id}',[GuideController::class, 'show']); //Вывод данного гида *
-
-Route::put('/guide/update/{id}',[GuideController::class, 'update']);  //Изиенение данных гида
-
-Route::delete('/guide/delete/{id}',[GuideController::class, 'destroy']);  //Удаление гида  *
-
-//Feedback
-
-Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
-
-
-//Booked_tours
-
-
-Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров  *
-
-Route::get('/booked/{id}',[BookedTourController::class, 'show']); //Вывод одной заявки  *
-
-Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
-
-Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение статуса заказа  *
-
-
 //Housing
-
-Route::post('/housing/photo',[HousingTourController::class, 'store']);  //Создание отеля *
-
-Route::get('/housing',[HousingTourController::class, 'index']); //Вывод всех отелей *
 
 Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод одного отеля  *
 
-Route::delete('/housing/delete/{id}',[HousingTourController::class, 'destroy']);   //Удаление отеля  *
+
 
 
 
 //Функции пользователя
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
+
+    //Booked_tours
+
     Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
+
+    //Feedback
+
+    Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
 });
+
+
 
 //Функционал администратора
 
 Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
+
+    //Region
+
     Route::delete('/region/delete/{id}',[RegionController::class, 'destroy']);   //Удаление города  *
+
+    Route::post('/region/create',[RegionController::class, 'store']);  //Создание нового города
+
+    //Housing
+
+    Route::post('/housing/photo',[HousingTourController::class, 'store']);  //Создание отеля *
+
+    Route::get('/housing',[HousingTourController::class, 'index']); //Вывод всех отелей *
+
+    Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод одного отеля  *
+
+    Route::delete('/housing/delete/{id}',[HousingTourController::class, 'destroy']);   //Удаление отеля  *
+
+
+    //Guide
+
+    Route::post('/guide/create',[GuideController::class, 'store']);  //Создание нового гида  *
+
+    Route::put('/guide/update/{id}',[GuideController::class, 'update']);  //Изиенение данных гида
+
+    Route::delete('/guide/delete/{id}',[GuideController::class, 'destroy']);  //Удаление гида  *
+
+    Route::get('/guide/{id}',[GuideController::class, 'show']);
+
+
+    //Tour
+
+    Route::post('/tour/create',[TourController::class, 'store']);   //Создание нового тура  *
+
+    Route::put('/tour/update/{id}',[TourController::class, 'update']);   //Изменение тура   *
+
+    Route::delete('/tour/delete/{id}',[TourController::class, 'destroy']);   //Удаление тура  *
+
+
+    //Booked_tours
+
+    Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров  *
+
+    Route::get('/booked/{id}',[BookedTourController::class, 'show']); //Вывод одной заявки  *
+
+    Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение статуса заказа  *
 });
