@@ -15,12 +15,13 @@ class Tour extends Model
         'price',
         'date_start',
         'date_end',
-        'legal_age',
-        'id_housing',
         'photo',
-        'place_tour_id',
+        'legal_age',
+        'enabled',
+        'id_region',
         'id_status',
-        //'id_feedback'
+        'id_guid',
+        'id_housing',
     ];
 
 

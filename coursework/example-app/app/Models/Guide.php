@@ -12,6 +12,8 @@ class Guide extends Model
     protected $fillable=[
       'name',
       'surname',
-      'description'
+      'description',
+        'photo',
+        'id_region'
     ];
 }

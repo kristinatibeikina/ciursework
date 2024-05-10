@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HousingStoreRequest;
+use App\Http\Resources\HousingResource;
 use App\Models\Housing;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class HousingTourController extends Controller
      */
     public function index()
     {
-        return Housing::all();
+        return HousingResource::collection(Housing::all());
     }
 
     /**
@@ -52,7 +53,11 @@ class HousingTourController extends Controller
      */
     public function show($id)
     {
-        //
+        $housing = new HousingResource(Housing::findOrFail($id));
+        if(! $housing){
+            return response()->json(['message'=>'Данного отеля не существует не существует'],401);
+        }
+        return $housing;
     }
 
     /**
@@ -75,6 +80,10 @@ class HousingTourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $guide =  new HousingResource(Housing::findOrFail($id));
+
+        $guide->delete();
+
+        return response(null, 204);
     }
 }

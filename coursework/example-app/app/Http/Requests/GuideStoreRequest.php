@@ -26,7 +26,8 @@ class GuideStoreRequest extends FormRequest
         return [
             'name'=>'required',
             'surname'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PlaceTourStoreRequest;
-use App\Http\Resources\PlaceTourResource;
-use App\Models\Place_tour;
+use App\Http\Requests\RegionStoreRequest;
+use App\Http\Resources\RegionResource;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
-class PlaceTourController extends Controller
+class RegionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class PlaceTourController extends Controller
      */
     public function index()
     {
-        return PlaceTourResource::collection(Place_tour:: all());
+        return RegionResource::collection(Region:: all());
     }
 
     /**
@@ -26,11 +26,11 @@ class PlaceTourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PlaceTourStoreRequest $request)
+    public function store(RegionStoreRequest $request)
     {
-        $create_place=Place_tour::create($request->validated());
+        $create_place=Region::create($request->validated());
 
-        return new PlaceTourResource($create_place);
+        return new RegionResource($create_place);
     }
 
     /**
@@ -41,7 +41,7 @@ class PlaceTourController extends Controller
      */
     public function show($id)
     {
-        return new PlaceTourResource(Place_tour::findOrFail($id));
+        return new RegionResource(Region::findOrFail($id));
     }
 
     /**
@@ -64,6 +64,10 @@ class PlaceTourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $region =  new RegionResource(Region::findOrFail($id));
+
+        $region->delete();
+
+        return response(null, 204);
     }
 }

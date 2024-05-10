@@ -18,7 +18,7 @@ class GuideController extends Controller
      */
     public function index()
     {
-        //
+        return GuideResource::collection(Guide::all());
     }
 
     /**
@@ -42,7 +42,11 @@ class GuideController extends Controller
      */
     public function show($id)
     {
-        //
+        $guid = new GuideResource(Guide::findOrFail($id));
+        if(! $guid){
+            return response()->json(['message'=>'Данного гида не существует'],401);
+        }
+        return $guid;
     }
 
     /**

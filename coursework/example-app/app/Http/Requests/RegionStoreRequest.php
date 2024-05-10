@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TourStoreRequest extends FormRequest
+class RegionStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,29 +23,14 @@ class TourStoreRequest extends FormRequest
      */
     public function rules()
     {
-        if(request()->isMethod('POST')){
+
             return [
-                'name'=>'required|unique:tours,name',
-                'description'=>'required|string',
-                'price'=>'required',
-                'date_start'=>'required',
-                'date_end'=>'required',
+                'name' => 'required|unique:regions|max:255',
                 'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'legal_age'=>'required',
-                'id_housing'=>'required',
-                'id_status'=>'required',
-                'enabled'=>'required',
-                'id_region'=>'required',
-                'id_guid'=>'required',
             ];
-        }else if(request()->isMethod('PUT')){
-            return [
-                'id_status'=>'required',
-                'id_guid'=>'required',
-            ];
-        }
 
     }
+
     public function messages()
     {
         return[
@@ -56,5 +41,6 @@ class TourStoreRequest extends FormRequest
             'image'=>'Должно быть фото',
             'mimes:jpeg,png,jpg,gif,svg'=>'Принимаемые форматы jpeg,png,jpg,gif,svg',
         ];
+
     }
 }
