@@ -23,6 +23,11 @@ class BookedTourRequest extends FormRequest
      */
     public function rules()
     {
+        if(request()->isMethod('PUT')) {
+            return [
+                'id_status_application'=>'required',
+            ];
+        }
         return [
             'id_tour'=>'required',
             'count_children'=>'required|numeric',

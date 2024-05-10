@@ -58,7 +58,7 @@ Route::get('/region/{id}',[RegionController::class, 'show']);//вывод гор
 
 Route::post('/region/create',[RegionController::class, 'store']);  //Создание нового города
 
-Route::delete('/region/delete/{id}',[RegionController::class, 'destroy']);   //Удаление города  *
+
 
 //Guide
 
@@ -80,11 +80,13 @@ Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Соз�
 //Booked_tours
 
 
-Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров
+Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров  *
 
-Route::post('/booked/create',[BookedTourController::class, 'show']);  //Создание заказа
+Route::get('/booked/{id}',[BookedTourController::class, 'show']); //Вывод одной заявки  *
 
-Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение данных заказа
+Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
+
+Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение статуса заказа  *
 
 
 //Housing
@@ -97,6 +99,16 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 
 Route::delete('/housing/delete/{id}',[HousingTourController::class, 'destroy']);   //Удаление отеля  *
 
-Route::group(['middleware'=>['auth:sanctum']],function (){
 
+
+//Функции пользователя
+
+Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
+    Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
+});
+
+//Функционал администратора
+
+Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
+    Route::delete('/region/delete/{id}',[RegionController::class, 'destroy']);   //Удаление города  *
 });

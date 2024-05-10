@@ -26,9 +26,11 @@ class BookedTourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookedTourRequest $request)
     {
-        //
+        $booked_tours=Booked_tours::create($request->validated());
+
+        return new BookedTourResource($booked_tours);
     }
 
     /**
@@ -37,11 +39,9 @@ class BookedTourController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BookedTourRequest $request)
+    public function show($id)
     {
-        $booked_tours=Booked_tours::create($request->validated());
-
-        return new BookedTourResource($booked_tours);
+        return new BookedTourResource(Booked_tours::findOrFail($id));
     }
 
     /**
