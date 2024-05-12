@@ -35,7 +35,7 @@ class BookedTourRequest extends FormRequest
             'wishes'=>'required',
             'response'=>'required',
             'id_status_application'=>'required',
-            'id_user'=>'required',
+            'id_user',
             'tel'=>'required',
             'email'=>'required',
         ];
