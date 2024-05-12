@@ -71,6 +71,8 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
 
+    Route::get('/booked/user',[BookedTourController::class, 'index_user']);  //Отображение заказанных туров  *
+
     //Feedback
 
     Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
@@ -81,7 +83,7 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
 
-    Route::get('/user/{id}',[UserController::class, 'show']); //Вывод всеъх туров  *
+    Route::get('/user/{id}',[UserController::class, 'show']); //Вывод данных текущего пользователя
 });
 
 

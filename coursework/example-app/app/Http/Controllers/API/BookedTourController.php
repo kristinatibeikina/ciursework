@@ -18,7 +18,16 @@ class BookedTourController extends Controller
      */
     public function index()
     {
-        return BookedTourResource::collection(Booked_tours::all());
+        return BookedTourResource::collection(Booked_tours::all());   //вывлж всех заказов для админа
+    }
+
+    public function index_user()
+    {
+
+        $user = Auth::user();
+        $id_user=$user->id;
+
+        return BookedTourResource::collection(Booked_tours::where('id_user',$id_user)->get());   //вывлж всех заказов для админа
     }
 
     /**
