@@ -78,6 +78,8 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
     //User
 
     Route::put('/user/update/{id}',[UserController::class, 'update']);  //Изиенение данных пользователя
+
+    Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
 });
 
 
@@ -133,4 +135,9 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     Route::get('/booked/{id}',[BookedTourController::class, 'show']); //Вывод одной заявки  *
 
     Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение статуса заказа  *
+
+
+    //User
+
+    Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
 });
