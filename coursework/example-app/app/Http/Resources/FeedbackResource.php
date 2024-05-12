@@ -18,6 +18,8 @@ class FeedbackResource extends JsonResource
             'count_stars'=>$this->count_stars,
             'comment'=>$this->comment,
             'date_published'=>$this->date_published,
+            'id_user'=>$this->id_user,
+            'id_tour'=>$this->id_tour,
         ];
     }
 }

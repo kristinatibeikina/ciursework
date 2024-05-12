@@ -42,7 +42,7 @@ class TourController extends Controller
      */
     public function show($id)
     {
-        $tour = new TourResource(Tour::findOrFail($id));
+        $tour = new TourResource(Tour::with('list')->findOrFail($id));
         if(! $tour){
             return response()->json(['message'=>'Данного тура не существует'],401);
         }

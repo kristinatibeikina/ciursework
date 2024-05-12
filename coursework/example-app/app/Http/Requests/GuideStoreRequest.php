@@ -23,11 +23,17 @@ class GuideStoreRequest extends FormRequest
      */
     public function rules()
     {
+        if(request()->isMethod('PUT')) {
+            return [
+                'description'=>'required',
+            ];
+        }
         return [
             'name'=>'required',
             'surname'=>'required',
             'description'=>'required',
             'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'id_region'=>'required'
         ];
     }
 }

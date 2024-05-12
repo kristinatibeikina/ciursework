@@ -7,6 +7,7 @@ use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\GuideController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\BookedTourController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Resources\RegionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -62,7 +63,6 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 
 
 
-
 //Функции пользователя
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
@@ -74,6 +74,10 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
     //Feedback
 
     Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
+
+    //User
+
+    Route::put('/user/update/{id}',[UserController::class, 'update']);  //Изиенение данных пользователя
 });
 
 
@@ -81,6 +85,9 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 //Функционал администратора
 
 Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
+
+
+
 
     //Region
 

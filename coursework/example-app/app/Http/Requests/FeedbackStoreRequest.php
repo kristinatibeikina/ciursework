@@ -24,6 +24,7 @@ class FeedbackStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_tour'=>'required',
             'comment'=>'required',
             'count_stars'=>'required',
         ];

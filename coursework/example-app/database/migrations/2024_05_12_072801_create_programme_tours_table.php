@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
-                $table->id();
-                $table->text('name');
-                $table->string('photo');
-                $table->timestamps();
+        Schema::create('programme_tours', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_tour');
+            $table->string('day');
+            $table->text( 'programme');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('programme_tours');
     }
 };

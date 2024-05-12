@@ -29,6 +29,7 @@ class TourResource extends JsonResource
             'id_region'=>$this->id_region,
             'id_status'=>$this->id_status,
             'id_guid'=>$this->id_guid,
+            'list'=>FeedbackResource::collection($this->list)
         ];
 
     }

@@ -27,7 +27,8 @@ class Tour extends Model
 
     public function list()
     {
-        return $this->only(Feedback::all());
+
+        return $this->hasMany(Feedback::class);
     }
 
 }
