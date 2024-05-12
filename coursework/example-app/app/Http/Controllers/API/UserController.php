@@ -15,7 +15,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
     }
@@ -39,7 +39,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if ($user->id !== auth()->user()->id) {
+            return response()->json(['message' => 'Не прошли проверку подлинности'], 401);
+        }
+
+        return response()->json([ 'user' => $user]);
     }
 
     /**
