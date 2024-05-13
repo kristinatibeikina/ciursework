@@ -96,6 +96,10 @@ class BookedTourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $guide =  new BookedTourResource(Booked_tours::findOrFail($id));
+
+        $guide->delete();
+
+        return response(null, 204);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Booked_tours;
+use App\Observers\BookedTourObserver;
 use Illuminate\Support\ServiceProvider;
 
 use App\Models\Tour;
@@ -27,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Tour::observe(TourObserver::class);
+        Booked_tours::observe(BookedTourObserver::class);
     }
 }

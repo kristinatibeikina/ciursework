@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Booked_tours;
 use App\Models\Tour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,9 +44,17 @@ class TourObserver
      * @param  \App\Models\Tour  $tour
      * @return void
      */
-    public function deleted(Tour $tour)
+    public function deleting(Tour $tour)
     {
-        //
+        // Проверяем, есть ли забронированные туры, связанные с удаляемым туром
+        $bookedTours = Booked_tours::where('id_tour', $tour->id)->exists();
+        if ($bookedTours) {
+            throw new \Exception("Нельзя удалить тур, который уже забронирован.");
+        }
+        if ($tour->date_start <= Carbon::now() && Carbon::now()<= $tour->date_end) {
+            throw new \Exception("Нельзя удалить тур когда он идет.");
+        }
+
     }
 
     /**

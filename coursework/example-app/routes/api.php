@@ -76,6 +76,8 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     Route::get('/booked/user',[BookedTourController::class, 'index_user']);  //Отображение заказанных туров  *
 
+    Route::delete('/booked/delete/{id}',[BookedTourController::class, 'destroy']);   //Отказ от заявки  *
+
     //Feedback
 
     Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
@@ -94,8 +96,6 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 //Функционал администратора
 
 Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
-
-
 
 
     //Region
