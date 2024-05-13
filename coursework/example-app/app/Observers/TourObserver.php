@@ -57,6 +57,19 @@ class TourObserver
 
     }
 
+    public function deleted(Tour $tour)
+    {
+        //Удаление тура когда он закончился
+        if (Carbon::now()->greaterThanOrEqualTo($tour->date_end)) {
+            $tour->delete();
+        }
+        // Находим все связанные бронирования и удаляем их
+        $bookedTours = Booked_tours::where('id_tour', $tour->id)->get();
+        foreach ($bookedTours as $bookedTour) {
+            $bookedTour->delete();
+        }
+    }
+
     /**
      * Handle the Tour "restored" event.
      *
