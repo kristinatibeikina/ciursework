@@ -67,6 +67,9 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
+
+
+
     //Booked_tours
 
     Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *

@@ -29,6 +29,7 @@ class TourController extends Controller
      */
     public function store(TourStoreRequest $request)
     {
+        $currentDate = Carbon::now();
        $create_tour=Tour::create($request->validated());
 
        return new TourResource($create_tour);
