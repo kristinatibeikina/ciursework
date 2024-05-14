@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\HousingTourController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\RegionController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\API\GuideController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\BookedTourController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\VerifyEmailController;
 use App\Http\Resources\RegionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -67,7 +69,9 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
+    //email
 
+    Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
 
 
     //Booked_tours
@@ -96,6 +100,13 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 //Функционал администратора
 
 Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
+
+
+    //email
+
+    Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
+
+    Route::get('/verify_email/{id}/{hash}',VerifyEmailController::class)->name('verification.verify');  //Подтверждение почты *
 
 
     //Region
