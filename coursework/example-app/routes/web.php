@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\EmailController;
+use App\Http\Controllers\API\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,4 +14,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
+
+Route::middleware(['auth:sanctum', 'id_role:1'])->group(function (){
+    Route::post('/email', [EmailController::class, 'store']);  //Подтверждение почты *
+
+    Route::get('/verify_email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed'])->name('verification.verify');
+});

@@ -25,6 +25,10 @@ class EmailController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($request->user()->hasVerifiedEmail()){
+            return response(['message'=>'Эта почта уже подтверждена']);
+        }
         $request->user()->sendEmailVerificationNotification();
 
         return response(['message'=>'Ссылка на подтверждение почты была отправлена на почту пользователя']);
