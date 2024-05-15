@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\HousingTourController;
+use App\Http\Controllers\API\NewPasswordController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\GuideController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\BookedTourController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\VerifyEmailController;
+
+use App\Http\Controllers\API\PasswordController;
 use App\Http\Resources\RegionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,15 +66,23 @@ Route::get('/guide',[GuideController::class, 'index']);  //Просмотр вс
 Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод одного отеля  *
 
 
+//Password
+
+Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');
 
 
 //Функции пользователя
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
+
     //email
 
     Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
+
+    Route::get('/verify_email/{id}/{hash}',VerifyEmailController::class)->middleware(['signed'])->name('verification.verify');  //Подтверждение почты из сообщения *
 
 
     //Booked_tours
@@ -106,7 +117,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
     Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
 
-    Route::get('/verify_email/{id}/{hash}',VerifyEmailController::class)->middleware(['signed'])->name('verification.verify');  //Подтверждение почты *
+    Route::get('/verify_email/{id}/{hash}',VerifyEmailController::class)->middleware(['signed'])->name('verification.verify');  //Подтверждение почты из сообщения *
 
 
     //Region
