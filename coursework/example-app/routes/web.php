@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\EmailController;
+use App\Http\Controllers\API\NewPasswordController;
 use App\Http\Controllers\API\PasswordController;
 use App\Http\Controllers\API\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +17,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum', 'id_role:1', 'id_role:2'])->group(function (){
 
-    Route::post('/email', [EmailController::class, 'store']);  //Подтверждение почты *
-
-    Route::get('/verify_email/{id}/{hash}', VerifyEmailController::class)->middleware(['signed'])->name('verification.verify');
-
-    //Password
-
-
-});

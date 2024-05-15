@@ -68,9 +68,12 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 
 //Password
 
-Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);
+Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
 
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
+
+
+
 
 
 //Функции пользователя
