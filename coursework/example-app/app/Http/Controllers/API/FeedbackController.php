@@ -27,9 +27,10 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackStoreRequest $request)
     {
-        $created_feedback = Feedback::create($request->validated());
+        $feedback = Feedback::create($request->validated());
 
-        return new FeedbackResource($created_feedback);
+        return response()->json(['message' => 'Комментарий был успешно создан','feedback'=> new FeedbackResource($feedback)],200);
+
     }
 
     /**

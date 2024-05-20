@@ -28,23 +28,40 @@ class HousingTourController extends Controller
      */
     public function store(HousingStoreRequest $request)
     {
-        $validatedData = $request->validated();
-
-        $image = $request->file('photo');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('photos'), $imageName);
-
-        $housing = Housing::create([
-            'name' => $validatedData['name'],
-            'photo' => $imageName,
-            'address' => $validatedData['address'],
-            'id_region' => $validatedData['id_region'],
-            'description' => $validatedData['description'],
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'photo' => 'required|array',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'address' => 'required|string|max:255',
+            'id_region' => 'required|integer',
+            'description' => 'nullable|string',
         ]);
 
-        return response()->json(['message' => 'Tour created successfully']);
-    }
+        $photos = [];
 
+        if ($request->hasFile('photo')) {
+            foreach ($request->file('photo') as $image) {
+                if (is_file($image)) { // Проверяем, что $image - это файл
+                    $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('photos'), $imageName);
+                    $photos[] = 'photos/' . $imageName; // Сохраняем путь к файлу
+                }
+            }
+        }
+
+        $housing = Housing::create([
+            'name' => $request->input('name'),
+            'photo' => json_encode($photos), // Сохраняем пути в виде JSON
+            'address' => $request->input('address'),
+            'id_region' => $request->input('id_region'),
+            'description' => $request->input('description'),
+        ]);
+
+        return response()->json([
+            'message' => 'Housing created successfully',
+            'housing' => $housing,
+        ], 201);
+    }
     /**
      * Display the specified resource.
      *

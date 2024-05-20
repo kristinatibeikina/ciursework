@@ -25,15 +25,28 @@ class GuideStoreRequest extends FormRequest
     {
         if(request()->isMethod('PUT')) {
             return [
-                'description'=>'required',
+                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+            ];
+        }else if(request()->isMethod('POST')){
+            return [
+                'surname' => 'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'name' => 'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'id_region'=>'required',
+                'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
             ];
         }
+
+    }
+    public function messages()
+    {
         return [
-            'name'=>'required',
-            'surname'=>'required',
-            'description'=>'required',
-            'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id_region'=>'required'
+            'required'=>'Обязательно для ввода',
+            'regex'=>'Должна использоваться кириллица',
+            'string'=>'Должен быть текст',
+            'max:2048'=>'Максимальный размер 2 МБ',
+            'image'=>'Должно быть фото',
+            'mimes:jpeg,png,jpg,gif,svg'=>'Принимаемые форматы jpeg,png,jpg,gif,svg',
         ];
     }
 }

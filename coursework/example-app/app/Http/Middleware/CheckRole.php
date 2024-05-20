@@ -27,7 +27,7 @@ class CheckRole
         }
 
         // Возвращаем ошибку "Доступ запрещен"
-        return response()->json(['error' => 'Access denied'], 403);
+        return response()->json(['error' => 'Доступ запрещен'], 403);
     }
 }
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('housings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('photo');
+            $table->text('photo');
             $table->string('address');
             $table->string('description');
             $table->integer('id_region');

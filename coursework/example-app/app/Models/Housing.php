@@ -16,4 +16,6 @@ class Housing extends Model
         'id_region',
         'description',
     ];
+
+
 }

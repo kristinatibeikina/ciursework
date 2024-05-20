@@ -27,16 +27,16 @@ class TourStoreRequest extends FormRequest
             return [
                 'name'=>'required|unique:tours,name',
                 'description'=>'required|string',
-                'price'=>'required',
+                'price'=>'',
                 'date_start'=>'required',
                 'date_end'=>'required',
-                'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
                 'legal_age'=>'required',
-                'id_housing'=>'required',
+                //'id_housing'=>'required',
                 'id_status'=>'required',
                 'enabled'=>'required',
                 'id_region'=>'required',
-                'id_guid'=>'required',
+               // 'id_guid'=>'required',
             ];
         }else if(request()->isMethod('PUT')){
             return [

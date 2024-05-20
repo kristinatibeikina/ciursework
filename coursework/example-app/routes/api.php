@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Auth
-Route::post('/register',[AuthController::class, 'register']);
+Route::post('/register',[AuthController::class, 'register'])->name('register');
 
 Route::post('/login',[AuthController::class, 'login']);
 
@@ -66,11 +66,6 @@ Route::get('/guide',[GuideController::class, 'index']);  //Просмотр вс
 Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод одного отеля  *
 
 
-//Password
-
-Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
-
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
 
 
 
@@ -79,6 +74,13 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])->middlew
 //Функции пользователя
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
+
+    //Password
+
+    Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
+
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
+
 
 
     //email
@@ -107,6 +109,9 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
     Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
 
     Route::get('/user/{id}',[UserController::class, 'show']); //Вывод данных текущего пользователя
+
+    //Logout
+    Route::delete('/user/logout',[AuthController::class, 'logout']);  //Удаление токена Текущего пользователя
 });
 
 
@@ -114,6 +119,13 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 //Функционал администратора
 
 Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
+
+    //Password
+
+    Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
+
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
+
 
 
     //email
@@ -148,7 +160,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
     Route::delete('/guide/delete/{id}',[GuideController::class, 'destroy']);  //Удаление гида  *
 
-    Route::get('/guide/{id}',[GuideController::class, 'show']);
+    Route::get('/guide/{id}',[GuideController::class, 'show']); //Поках гида
 
 
     //Tour
@@ -172,4 +184,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     //User
 
     Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
+
+    //Logout
+    Route::delete('/user/logout',[AuthController::class, 'logout']);  //Удаление токена Текущего пользователя
 });

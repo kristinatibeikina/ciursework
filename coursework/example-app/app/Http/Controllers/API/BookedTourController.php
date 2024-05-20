@@ -85,7 +85,7 @@ class BookedTourController extends Controller
         $tour->update($request->validated());
 
         // Возвращаем успешный ответ или что-то еще по вашему усмотрению
-        return response()->json(['message' => 'Данные тура изменены', 'tour'=>$tour], 200);
+        return response()->json(['message' => 'Данные тура изменены', 'tour'=>new BookedTourResource($tour)], 200);
     }
 
     /**

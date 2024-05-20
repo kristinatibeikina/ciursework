@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class Tour extends Model
 {
     use HasFactory;
@@ -25,10 +24,23 @@ class Tour extends Model
     ];
 
 
+
     public function list()
     {
 
         return $this->hasMany(Feedback::class);
     }
+
+
+    public function setPhotosAttribute($value)
+    {
+        $this->attributes['photo'] = json_encode($value);
+    }
+
+    public function getPhotosAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
 
 }

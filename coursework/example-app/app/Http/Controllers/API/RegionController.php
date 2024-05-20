@@ -28,9 +28,19 @@ class RegionController extends Controller
      */
     public function store(RegionStoreRequest $request)
     {
-        $create_place=Region::create($request->validated());
+        $image = $request->file('photo');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('photos'), $imageName);
 
-        return new RegionResource($create_place);
+
+        $region = Region::create($request->validated());
+
+        $region->photo = $imageName;
+
+        $region->save();
+
+
+        return response()->json(['message' => 'Регион был успешно создан','region'=>new RegionResource($region)],200);
     }
 
     /**

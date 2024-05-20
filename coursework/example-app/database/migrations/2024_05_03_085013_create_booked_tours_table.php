@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('id_status_application');
             $table->integer('id_user');
             $table->integer('id_employees');
+            $table->integer('date_application');
             $table->timestamps();
         });
     }

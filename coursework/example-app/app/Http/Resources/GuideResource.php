@@ -14,6 +14,14 @@ class GuideResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(request()->isMethod('GET')) {
+            return [
+                'name'=>$this->name,
+                'surname'=>$this->surname,
+                'description'=>$this->description,
+                'photo'=>$this->photo,
+            ];
+        }
         return[
             'name'=>$this->name,
             'surname'=>$this->surname,

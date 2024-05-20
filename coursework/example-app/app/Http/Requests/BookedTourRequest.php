@@ -38,6 +38,7 @@ class BookedTourRequest extends FormRequest
             'id_user',
             'tel'=>'required',
             'email'=>'required',
+            'date_application'=>'required',
         ];
     }
 }

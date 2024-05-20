@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourStoreRequest;
 use App\Http\Resources\TourResource;
+use App\Models\Photo_tour;
 use Illuminate\Http\Request;
 use App\Models\Tour;
 use Illuminate\Support\Carbon;
@@ -29,11 +30,22 @@ class TourController extends Controller
      */
     public function store(TourStoreRequest $request)
     {
-        $currentDate = Carbon::now();
-       $create_tour=Tour::create($request->validated());
 
-       return new TourResource($create_tour);
+        $image = $request->file('photo');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('photos'), $imageName);
+
+
+        $tour = Tour::create($request->validated());
+
+        $tour->photo = $imageName;
+
+        $tour->save();
+
+
+        return response()->json(['message' => 'Отель был успешно создан', 'tour' => new TourResource($tour)], 200);
     }
+
 
     /**
      * Display the specified resource.
