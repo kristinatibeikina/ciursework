@@ -25,7 +25,7 @@ class GuideStoreRequest extends FormRequest
     {
         if(request()->isMethod('PUT')) {
             return [
-                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'regex:/^[А-Яа-яЁё\s]+$/u|string',
             ];
         }else if(request()->isMethod('POST')){
             return [

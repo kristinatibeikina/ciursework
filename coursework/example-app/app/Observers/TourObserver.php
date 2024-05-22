@@ -49,6 +49,7 @@ class TourObserver
         // Проверяем, есть ли забронированные туры, связанные с удаляемым туром
         $bookedTours = Booked_tours::where('id_tour', $tour->id)->exists();
         if ($bookedTours) {
+
             throw new \Exception("Нельзя удалить тур, который уже забронирован.");
         }
         if ($tour->date_start <= Carbon::now() && Carbon::now()<= $tour->date_end) {

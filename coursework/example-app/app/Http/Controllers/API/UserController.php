@@ -45,7 +45,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Не прошли проверку подлинности'], 401);
         }
 
-        return response()->json([ 'user' => $user]);
+        return response()->json([new UserResource($user)],200);
     }
 
     /**
@@ -57,21 +57,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $user = User::findOrFail($id);
 
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'Нет такого пользователя'], 404);
         }
 
         // Проверяем, соответствует ли пользователь, пытающийся обновить данные, текущему аутентифицированному пользователю
         if ($user->id !== auth()->user()->id) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Отказано в доступе'], 401);
         }
 
         $user->update($request->all());
 
-        return response()->json(['message' => 'User updated successfully', 'user' => $user]);
+        return response()->json(['message' => 'Данные пользователя были изменены', new UserResource($user)],200);
 
     }
 

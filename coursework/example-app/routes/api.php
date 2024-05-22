@@ -37,13 +37,13 @@ Route::post('/login',[AuthController::class, 'login']);
 
 
 //Tour
-Route::get('/tour',[TourController::class, 'index']); //Вывод всеъх туров  *
+Route::get('/tour',[TourController::class, 'index'])->name('index'); //Вывод всеъх туров  *
 
 Route::get('/tour/{id}',[TourController::class, 'show']); //Вывод одного тура *
 
-Route::get('/search',[TourController::class, 'search']);  //Поиск по названию тура (в форме передовать id= 'query' );  *
+Route::get('/tours/search',[TourController::class, 'search']);  //Поиск по названию тура (в форме передовать id= 'query' );  *
 
-Route::get('/filter',[TourController::class, 'filter']);  //Фильтрация в форме передовать date_start status prise  *
+Route::get('/tours/filter',[TourController::class, 'filter']);  //Фильтрация в форме передовать date_start status prise  *
 
 
 
@@ -106,8 +106,6 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     Route::put('/user/update/{id}',[UserController::class, 'update']);  //Изиенение данных пользователя
 
-    Route::delete('/user/token_delete/',[UserController::class, 'destroy']);  //Удаление токена Текущего пользователя
-
     Route::get('/user/{id}',[UserController::class, 'show']); //Вывод данных текущего пользователя
 
     //Logout
@@ -146,8 +144,6 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     Route::post('/housing/photo',[HousingTourController::class, 'store']);  //Создание отеля *
 
     Route::get('/housing',[HousingTourController::class, 'index']); //Вывод всех отелей *
-
-    Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод одного отеля  *
 
     Route::delete('/housing/delete/{id}',[HousingTourController::class, 'destroy']);   //Удаление отеля  *
 

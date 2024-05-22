@@ -25,8 +25,25 @@ class FeedbackStoreRequest extends FormRequest
     {
         return [
             'id_tour'=>'required',
-            'comment'=>'required',
+            'comment'=>'required|string|regex:/^[А-Яа-яЁё\s]+$/u',
             'count_stars'=>'required',
+            'date_published'=>'',
+            'photo' => 'array',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required'=>'Обязательно для ввода',
+            'regex'=>'Должна использоваться кириллица',
+            'string'=>'Должен быть текст',
+            'photo' => 'required|array',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'=>'Должна быть фотография',
+            'mimes'=>'Формат jpeg,png,jpg,gif,svg',
+            'max:2048'=>'Максимальный размер 2 м',
+            'array'=>'Массив данных'
         ];
     }
 }

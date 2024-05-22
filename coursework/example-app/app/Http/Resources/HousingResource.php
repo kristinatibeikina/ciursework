@@ -17,8 +17,7 @@ class HousingResource extends JsonResource
         return [
             'name'=>$this->name,
             'photo'=>$this->photo,
-            'address'=>$this->addess,
-            'id_region'=>$this->id_region,
+            'address'=>$this->address,
             'description'=>$this->description,
         ];
     }

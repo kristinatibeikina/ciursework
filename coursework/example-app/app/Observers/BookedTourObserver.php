@@ -34,10 +34,9 @@ class BookedTourObserver
      * @param  \App\Models\Booked_tours  $booked_tours
      * @return void
      */
-    public function deleted(Booked_tours $booked_tours)
+    public function deleting(Booked_tours $booked_tours)
     {
-        if ($booked_tours->id_status_application === 2) {
-            // Если дата начала тура в прошлом, выбрасываем исключение
+        if ($booked_tours->id_status_application == 2) {
             throw new \Exception("Нельзя отказаться от бронирования когда оно одобрено");
         }
     }

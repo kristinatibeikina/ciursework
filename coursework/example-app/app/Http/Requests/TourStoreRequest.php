@@ -25,30 +25,35 @@ class TourStoreRequest extends FormRequest
     {
         if(request()->isMethod('POST')){
             return [
-                'name'=>'required|unique:tours,name',
-                'description'=>'required|string',
+                'name'=>'required|unique:tours,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|string|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'price'=>'',
                 'date_start'=>'required',
                 'date_end'=>'required',
                 'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
                 'legal_age'=>'required',
-                //'id_housing'=>'required',
                 'id_status'=>'required',
-                'enabled'=>'required',
+                'enabled'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'id_region'=>'required',
-               // 'id_guid'=>'required',
             ];
-        }else if(request()->isMethod('PUT')){
+        }if(request()->isMethod('PUT')){
             return [
-                'id_status'=>'required',
-                'id_guid'=>'required',
+                'id_status'=>'',
+                'id_guid'=>'',
+                'legal_age'=>'',
+                'price'=>'',
+                'id_housing'=>''
             ];
+
         }
+
+
 
     }
     public function messages()
     {
         return[
+            'regex'=>'Должна использоваться кириллица',
             'required'=>'Обязательно для ввода',
             'unique'=>'Значение должно быть уникально',
             'string'=>'Должен быть текст',

@@ -15,6 +15,7 @@ class Feedback extends Model
         'date_published',
         'id_user',
         'id_tour',
+        'photo'
     ];
 
 }

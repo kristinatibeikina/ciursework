@@ -5,7 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourStoreRequest;
 use App\Http\Resources\TourResource;
+use App\Models\Guide;
+use App\Models\Housing;
 use App\Models\Photo_tour;
+use App\Models\Region;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Models\Tour;
 use Illuminate\Support\Carbon;
@@ -19,7 +23,12 @@ class TourController extends Controller
      */
     public function index()
     {
-        return TourResource::collection(Tour::all());
+        $tours = TourResource::collection(Tour::all());
+        foreach ($tours as $tour){
+            $region = Region::findOrFail($tour->id_region)->name;
+
+        }
+        return response()->json(['tour' => $tours], 200);
     }
 
     /**
@@ -43,7 +52,7 @@ class TourController extends Controller
         $tour->save();
 
 
-        return response()->json(['message' => 'Отель был успешно создан', 'tour' => new TourResource($tour)], 200);
+        return response()->json(['message' => 'Отель был успешно создан'], 200);
     }
 
 
@@ -55,11 +64,13 @@ class TourController extends Controller
      */
     public function show($id)
     {
+
         $tour = new TourResource(Tour::with('list')->findOrFail($id));
-        if(! $tour){
-            return response()->json(['message'=>'Данного тура не существует'],401);
-        }
-        return $tour;
+        $region = Region::findOrFail($tour->id_region)->name;
+        $guide = Guide::findOrFail($tour->id_guid)->name;
+        $housing = Housing::findOrFail($tour->id_housing)->name;
+        return response()->json(['tour'=>new TourResource($tour),'housing' => $housing,'region' => $region,'guide' => $guide],200);
+
     }
 
     /**
@@ -78,7 +89,7 @@ class TourController extends Controller
         $tour->update($request->validated());
 
         // Возвращаем успешный ответ или что-то еще по вашему усмотрению
-        return response()->json(['message' => 'Данные тура изменены', 'tour'=>$tour], 200);
+        return response()->json(['message' => 'Данные тура изменены', 'tour'=>new TourResource($tour)], 200);
     }
 
     /**
@@ -103,12 +114,12 @@ class TourController extends Controller
         $query = $request->get('query');
 
         $results = Tour::where('name', 'like', '%' . $query . '%')->get();
-        return response()->json($results);
+        return response()->json(TourResource::collection($results),200);
     }
 
     public function filter(Request $request)
     {
-        $status = $request->input('status');
+        $status = $request->input('id_status');
         $date_start = $request->input('date_tart');
         $min_price = $request->input('min_price');
         $max_price = $request->input('max_price');
@@ -131,7 +142,7 @@ class TourController extends Controller
 
         $tours = $query->get();
 
-        return response()->json(['tours' => $tours]);
+        return response()->json(TourResource::collection($tours),200);
     }
 
 

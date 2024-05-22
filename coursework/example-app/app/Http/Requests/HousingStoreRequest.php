@@ -26,8 +26,8 @@ class HousingStoreRequest extends FormRequest
 
         if(request()->isMethod('POST')){
             return [
-                'name'=>'required|unique:tours,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
-                'photo' => 'required|array',
+                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'photo' => 'array',
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'id_region'=>'required',
@@ -35,8 +35,8 @@ class HousingStoreRequest extends FormRequest
             ];
         }else{
             return [
-                'name'=>'required|unique:tours,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
-                'photo' => 'required|array',
+                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'photo' => 'array',
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'id_region'=>'required',

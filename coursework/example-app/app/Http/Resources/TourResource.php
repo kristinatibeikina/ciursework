@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Region;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TourResource extends JsonResource
@@ -14,23 +15,27 @@ class TourResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        return [
-            'id'=>$this->id,
-            'name'=>$this->name,
-            'description'=>$this->description,
-            'price'=>$this->price,
-            'date_start'=>$this->date_start,
-            'date_end'=>$this->date_end,
-            'legal_age'=>$this->legal_age,
-            'id_housing'=>$this->id_housing,
-            'photo'=>$this->photo,
-            'enabled'=>$this->enabled,
-            'id_region'=>$this->id_region,
-            'id_status'=>$this->id_status,
-            'id_guid'=>$this->id_guid,
-            'list'=>FeedbackResource::collection($this->list)
-        ];
+        if ($request->route()->getName() === 'index') {
+            return [
+                'name' => $this->name,
+                'price' => $this->price,
+                'date_start' => $this->date_start,
+                'date_end' => $this->date_end,
+                'photo' => $this->photo,
+                'id_region'=>$this->id_region
+            ];
+        }
+            return [
+                'name'=>$this->name,
+                'description'=>$this->description,
+                'price'=>$this->price,
+                'date_start'=>$this->date_start,
+                'date_end'=>$this->date_end,
+                'legal_age'=>$this->legal_age,
+                'photo'=>$this->photo,
+                'enabled'=>$this->enabled,
+                'list'=>FeedbackResource::collection($this->list)
+            ];
 
     }
 }

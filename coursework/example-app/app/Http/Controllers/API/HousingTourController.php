@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\HousingStoreRequest;
 use App\Http\Resources\HousingResource;
 use App\Models\Housing;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class HousingTourController extends Controller
@@ -28,14 +29,8 @@ class HousingTourController extends Controller
      */
     public function store(HousingStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'photo' => 'required|array',
-            'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'address' => 'required|string|max:255',
-            'id_region' => 'required|integer',
-            'description' => 'nullable|string',
-        ]);
+        $validated=$request->validated();
+
 
         $photos = [];
 
@@ -49,18 +44,16 @@ class HousingTourController extends Controller
             }
         }
 
-        $housing = Housing::create([
-            'name' => $request->input('name'),
-            'photo' => json_encode($photos), // Сохраняем пути в виде JSON
-            'address' => $request->input('address'),
-            'id_region' => $request->input('id_region'),
-            'description' => $request->input('description'),
-        ]);
 
-        return response()->json([
-            'message' => 'Housing created successfully',
-            'housing' => $housing,
-        ], 201);
+        $housing = new Housing();
+        $housing->name = $validated['name'];
+        $housing->photo = json_encode($photos);  // Сохранение JSON строки с путями к фото
+        $housing->address = $validated['address'];
+        $housing->id_region = $validated['id_region'];
+        $housing->description = $validated['description'];
+        $housing->save();
+
+        return response()->json(['message' => 'Отель был успешно создан', 'housing' =>new HousingResource($housing)], 201);
     }
     /**
      * Display the specified resource.
@@ -71,10 +64,8 @@ class HousingTourController extends Controller
     public function show($id)
     {
         $housing = new HousingResource(Housing::findOrFail($id));
-        if(! $housing){
-            return response()->json(['message'=>'Данного отеля не существует не существует'],401);
-        }
-        return $housing;
+        $region = Region::findOrFail($housing->id_region);
+        return response()->json(['housing'=>new HousingResource($housing),'name_region' => $region->name],200);
     }
 
     /**

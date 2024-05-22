@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date_published');
             $table->integer('id_user');
             $table->integer('id_tour');
+            $table->text('photo');
             $table->timestamps();
         });
     }
