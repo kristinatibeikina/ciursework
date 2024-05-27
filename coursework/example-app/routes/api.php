@@ -37,7 +37,7 @@ Route::post('/login',[AuthController::class, 'login']);
 
 
 //Tour
-Route::get('/tour',[TourController::class, 'index'])->name('index'); //Вывод всеъх туров  *
+Route::get('/tours',[TourController::class, 'index'])->name('index'); //Вывод всех туров  *
 
 Route::get('/tour/{id}',[TourController::class, 'show']); //Вывод одного тура *
 
@@ -77,9 +77,9 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     //Password
 
-    Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
+    Route::post('/reset-password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений на почту
 
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
+    Route::post('/password-recovery', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
 
 
 
@@ -174,7 +174,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
     Route::get('/booked/{id}',[BookedTourController::class, 'show']); //Вывод одной заявки  *
 
-    Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Ихменение статуса заказа  *
+    Route::put('/booked/update/{id}',[BookedTourController::class, 'update']);  //Изменение статуса заказа  *
 
 
     //User

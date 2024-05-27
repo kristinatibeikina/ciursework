@@ -40,12 +40,11 @@ class BookedTourController extends Controller
      */
     public function store(BookedTourRequest $request)
     {
-        $user = Auth::user();
-        $id_user=$user->id;
+
 
         $booked_tours=Booked_tours::create($request->validated());
 
-        $booked_tours->id_user=$id_user;
+        $booked_tours->id_user=Auth::id();
         $booked_tours->date_application=Carbon::now();
 
         //Расчет стоимоти тура

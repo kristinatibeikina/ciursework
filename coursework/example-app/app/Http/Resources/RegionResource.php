@@ -18,7 +18,7 @@ class RegionResource extends JsonResource
         return [
             'name' => $this->name,
             'photo' => $this->photo,
-            // 'list'=>TourResource::collection($this->list),
+            //'list'=>TourResource::collection($this->list),
         ];
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Booked_tours;
+use App\Models\Feedback;
 use App\Models\Guide;
 use App\Models\User;
 use App\Observers\BookedTourObserver;
+use App\Observers\FeedbackObserver;
 use App\Observers\GuideObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
         Tour::observe(TourObserver::class);
         Booked_tours::observe(BookedTourObserver::class);
         Guide::observe(GuideObserver::class);
+        Feedback::observe(FeedbackObserver::class);
     }
 }

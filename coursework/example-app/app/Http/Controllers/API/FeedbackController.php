@@ -51,7 +51,7 @@ class FeedbackController extends Controller
         $feedback->comment = $validated['comment'];
         $feedback->count_stars = $validated['count_stars'];
         $feedback->date_published = Carbon::now();
-        $feedback->id_user = $user->id;
+        $feedback->id_user = Auth::id();
         $feedback->save();
 
         return response()->json(['message' => 'Комментарий был успешно создан','feedback'=> new FeedbackResource($feedback),'name_user'=>$user->name],200);

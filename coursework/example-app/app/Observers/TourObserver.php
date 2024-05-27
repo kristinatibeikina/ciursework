@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Booked_tours;
+use App\Models\Guide;
 use App\Models\Tour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,9 +41,13 @@ class TourObserver
 
             throw new \Exception("Нельзя изменить тур, который уже забронирован.");
         }
-        $guid = Tour::where('id_guid',$tour->id_guid)->first();
-        if($guid){
+        $tour_guid = Tour::where('id_guid',$tour->id_guid)->first();
+        if($tour_guid){
             throw new \Exception("Нельзя поставить данного гида на тур, он уже участвует в другом.");
+        }
+        $guid = Guide::where('id',$tour->id_guid)->first();
+        if($tour->id_region != $guid->id_region){
+            throw new \Exception("Выбранный гид не относится к данному региону.");
         }
     }
 
