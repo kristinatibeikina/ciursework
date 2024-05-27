@@ -32,10 +32,6 @@ class Tour extends Model
     }
 
 
-    public function setPhotosAttribute($value)
-    {
-        $this->attributes['photo'] = json_encode($value);
-    }
 
     public function getPhotosAttribute($value)
     {

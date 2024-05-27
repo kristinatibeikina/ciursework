@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->integer('id_role');
+            $table->integer('email_verified_at');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -33,9 +33,17 @@ class TourObserver
      * @param  \App\Models\Tour  $tour
      * @return void
      */
-    public function updated(Tour $tour)
+    public function updating(Tour $tour)
     {
-        //
+        $bookedTours = Booked_tours::where('id_tour', $tour->id)->exists();
+        if ($bookedTours) {
+
+            throw new \Exception("Нельзя изменить тур, который уже забронирован.");
+        }
+        $guid = Tour::where('id_guid',$tour->id_guid)->first();
+        if($guid){
+            throw new \Exception("Нельзя поставить данного гида на тур, он уже участвует в другом.");
+        }
     }
 
     /**
@@ -58,18 +66,7 @@ class TourObserver
 
     }
 
-    public function deleted(Tour $tour)
-    {
-        //Удаление тура когда он закончился
-        if (Carbon::now()->greaterThanOrEqualTo($tour->date_end)) {
-            $tour->delete();
-        }
-        // Находим все связанные бронирования и удаляем их
-        $bookedTours = Booked_tours::where('id_tour', $tour->id)->get();
-        foreach ($bookedTours as $bookedTour) {
-            $bookedTour->delete();
-        }
-    }
+
 
     /**
      * Handle the Tour "restored" event.

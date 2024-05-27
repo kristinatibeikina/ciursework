@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GuideStoreRequest;
 use App\Http\Resources\GuideResource;
 use App\Models\Region;
+use App\Models\Tour;
 use Illuminate\Http\Request;
 
 use App\Models\Guide;
@@ -57,7 +58,8 @@ class GuideController extends Controller
 
         $guid = new GuideResource(Guide::findOrFail($id));
         $region = Region::findOrFail($guid->id_region);
-        return response()->json(['guid'=>new GuideResource($guid),'name_region' => $region->name],200);
+        $tour= Tour::where('id_guid',$id)->pluck('name');
+        return response()->json(['guid'=>new GuideResource($guid),'name_region' => $region->name,'tour'=>$tour],200);
     }
 
     /**

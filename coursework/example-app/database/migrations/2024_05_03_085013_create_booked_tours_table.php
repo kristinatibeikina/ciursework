@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('id_user');
             $table->integer('id_employees');
             $table->integer('date_application');
+            $table->integer('price_end');
             $table->timestamps();
         });
     }

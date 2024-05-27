@@ -19,7 +19,8 @@ class Booked_tours extends Model
         'id_user',
         'tel',
         'email',
-        'date_application'
+        'date_application',
+        'price_end'
 
     ];
 }

@@ -47,6 +47,7 @@ class TourController extends Controller
 
         $tour = Tour::create($request->validated());
 
+
         $tour->photo = $imageName;
 
         $tour->save();

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Booked_tours;
 use App\Models\Guide;
+use App\Models\User;
 use App\Observers\BookedTourObserver;
 use App\Observers\GuideObserver;
 use Illuminate\Support\ServiceProvider;

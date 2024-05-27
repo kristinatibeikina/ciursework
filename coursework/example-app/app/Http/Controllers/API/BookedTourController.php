@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookedTourRequest;
 use App\Http\Resources\BookedTourResource;
 use App\Models\Booked_tours;
+use App\Models\Tour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,13 @@ class BookedTourController extends Controller
 
         $booked_tours->id_user=$id_user;
         $booked_tours->date_application=Carbon::now();
+
+        //Расчет стоимоти тура
+        $count_user=$booked_tours->count_children;
+        $count_user+=$booked_tours->count_adults;
+        $tour = Tour::where('id',$booked_tours->id_tour)->first();
+        $price=$tour->price;
+        $booked_tours->price_end=$count_user*$price;
         $booked_tours->save();
         return new BookedTourResource($booked_tours);
     }

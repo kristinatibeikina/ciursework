@@ -27,7 +27,6 @@ return new class extends Migration
             $table->integer('id_status');
             $table->integer('id_guid');
             $table->integer('id_housing');
-            $table->integer('date_application');
             $table->timestamps();
         });
     }
