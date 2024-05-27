@@ -23,9 +23,12 @@ class BookedTourObserver
      * @param  \App\Models\Booked_tours  $booked_tours
      * @return void
      */
-    public function updated(Booked_tours $booked_tours)
+    public function updating(Booked_tours $booked_tours)
     {
-        //
+        $admin=$booked_tours->id_employees;
+        if ($admin) {
+            throw new \Exception("Нельзя зменить статус заявки когда уже одобрено");
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\HousingTourController;
 use App\Http\Controllers\API\NewPasswordController;
+use App\Http\Controllers\API\ProgrammTourController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\GuideController;
@@ -183,4 +184,8 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
     //Logout
     Route::delete('/user/logout',[AuthController::class, 'logout']);  //Удаление токена Текущего пользователя
+
+    //Program
+    Route::post('/program/create',[ProgrammTourController::class, 'store']);  //Создание программы тура
+
 });

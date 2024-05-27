@@ -54,7 +54,7 @@ class BookedTourController extends Controller
         $price=$tour->price;
         $booked_tours->price_end=$count_user*$price;
         $booked_tours->save();
-        return new BookedTourResource($booked_tours);
+        return response()->json(['message' => 'Тур успешно создан', 'tour'=>new BookedTourResource($booked_tours)], 200);
     }
 
     /**
@@ -78,8 +78,9 @@ class BookedTourController extends Controller
     public function update(BookedTourRequest $request, $id)
     {
         // Получаем экземпляр модели Tour
-        $tour =  new BookedTourResource(Booked_tours::findOrFail($id));
 
+        $tour =  Booked_tours::findOrFail($id);
+        $tour->id_employees=Auth::id();
         // Обновляем атрибуты модели с использованием данных из запроса
         $tour->update($request->validated());
 
