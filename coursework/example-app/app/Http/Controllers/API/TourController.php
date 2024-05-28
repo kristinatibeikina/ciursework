@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourStoreRequest;
 use App\Http\Resources\TourResource;
+use App\Models\Feedback;
 use App\Models\Guide;
 use App\Models\Housing;
 use App\Models\Photo_tour;
@@ -66,11 +67,12 @@ class TourController extends Controller
     public function show($id)
     {
 
-        $tour = new TourResource(Tour::with('list')->findOrFail($id));
+        $tour = new TourResource(Tour::findOrFail($id));
         $region = Region::findOrFail($tour->id_region)->name;
         $guide = Guide::findOrFail($tour->id_guid)->name;
         $housing = Housing::findOrFail($tour->id_housing)->name;
-        return response()->json(['tour'=>new TourResource($tour),'housing' => $housing,'region' => $region,'guide' => $guide],200);
+        $feedback = Feedback::where('id_tour',$id)->get();
+        return response()->json(['tour'=>$tour,'housing' => $housing,'region' => $region,'guide' => $guide,'feedback'=>$feedback],200);
 
     }
 

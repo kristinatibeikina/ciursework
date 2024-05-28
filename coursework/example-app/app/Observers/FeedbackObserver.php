@@ -19,6 +19,18 @@ class FeedbackObserver
         if(!$booked ){
             throw new \Exception("Оставлять комментарии могут только участники тура.");
         }
+
+        $photosString = $feedback->photo;
+
+        // Преобразуем строку в массив
+        $photosArray = explode(',', $photosString);
+
+        // Проверяем количество элементов в массиве
+        $photoCount = count($photosArray);
+
+        if ($photoCount > 3) {
+            throw new \Exception("Больше трех фото нельзя.");
+        }
     }
 
     /**

@@ -34,7 +34,6 @@ class TourResource extends JsonResource
                 'legal_age'=>$this->legal_age,
                 'photo'=>$this->photo,
                 'enabled'=>$this->enabled,
-                'list'=>FeedbackResource::collection($this->list)
             ];
 
     }

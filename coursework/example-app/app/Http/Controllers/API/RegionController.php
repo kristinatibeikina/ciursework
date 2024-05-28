@@ -51,7 +51,7 @@ class RegionController extends Controller
      */
     public function show($id)
     {
-        return new RegionResource(Region::findOrFail($id));
+        return new RegionResource(Region::with('list')->findOrFail($id));
     }
 
     /**
