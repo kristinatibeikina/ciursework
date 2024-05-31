@@ -4,11 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourStoreRequest;
+use App\Http\Resources\ProgramTourResource;
 use App\Http\Resources\TourResource;
 use App\Models\Feedback;
 use App\Models\Guide;
 use App\Models\Housing;
 use App\Models\Photo_tour;
+use App\Models\Program_tour;
 use App\Models\Region;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -24,12 +26,18 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = TourResource::collection(Tour::all());
-        foreach ($tours as $tour){
-            $region = Region::findOrFail($tour->id_region)->name;
+        $tours = Tour::all();
+        $result = [];
 
+        foreach ($tours as $tour) {
+            $region = Region::where('id', $tour->id_region)->first();
+            $result[] = [
+                'tour' => new TourResource($tour),
+                'region' => $region ? $region->name : null
+            ];
         }
-        return response()->json(['tour' => $tours], 200);
+
+        return response()->json($result, 200);
     }
 
     /**
@@ -72,7 +80,8 @@ class TourController extends Controller
         $guide = Guide::findOrFail($tour->id_guid)->name;
         $housing = Housing::findOrFail($tour->id_housing)->name;
         $feedback = Feedback::where('id_tour',$id)->get();
-        return response()->json(['tour'=>$tour,'housing' => $housing,'region' => $region,'guide' => $guide,'feedback'=>$feedback],200);
+        $program = Program_tour::where('id_tour',$id)->first();
+        return response()->json(['tour'=>$tour,'housing' => $housing,'region' => $region,'guide' => $guide,'feedback'=>$feedback,'program'=>new ProgramTourResource($program)],200);
 
     }
 
@@ -86,7 +95,7 @@ class TourController extends Controller
     public function update(TourStoreRequest $request, $id)
     {
         // Получаем экземпляр модели Tour
-        $tour =  new TourResource(Tour::findOrFail($id));
+        $tour =  Tour::findOrFail($id);
 
         // Обновляем атрибуты модели с использованием данных из запроса
         $tour->update($request->validated());

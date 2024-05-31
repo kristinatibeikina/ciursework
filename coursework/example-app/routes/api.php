@@ -50,7 +50,7 @@ Route::get('/tours/filter',[TourController::class, 'filter']);  //Фильтра
 
 //Region
 
-Route::get('/region',[RegionController::class, 'index']);//Вывод всех городов   *
+Route::get('/region',[RegionController::class, 'index'])->name('index');//Вывод всех городов   *
 
 Route::get('/region/{id}',[RegionController::class, 'show']);//вывод города
 
@@ -75,6 +75,7 @@ Route::get('/housing/{id}',[HousingTourController::class, 'show']); //Вывод
 //Функции пользователя
 
 Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
+
 
     //Password
 

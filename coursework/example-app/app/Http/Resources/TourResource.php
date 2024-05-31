@@ -22,7 +22,6 @@ class TourResource extends JsonResource
                 'date_start' => $this->date_start,
                 'date_end' => $this->date_end,
                 'photo' => $this->photo,
-                'id_region'=>$this->id_region
             ];
         }
             return [

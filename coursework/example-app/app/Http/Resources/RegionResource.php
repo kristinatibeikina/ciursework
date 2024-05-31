@@ -15,10 +15,19 @@ class RegionResource extends JsonResource
     public function toArray($request)
     {
 
+        if ($request->route()->getName() === 'index') {
+            return [
+                'name' => $this->name,
+                'photo' => $this->photo,
+
+            ];
+        }
         return [
             'name' => $this->name,
             'photo' => $this->photo,
             'list'=>TourResource::collection($this->list),
         ];
+
+
     }
 }

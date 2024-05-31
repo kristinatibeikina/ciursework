@@ -30,7 +30,7 @@ class ProgrammTourController extends Controller
     {
         $program=new ProgramTourResource(Program_tour::create($request->validated()));
 
-        return response()->json(['message' => 'Прогрвмма успешно создана', 'program'=>$program], 200);
+        return response()->json(['message' => 'Программа успешно создана', 'program'=>$program], 200);
     }
 
     /**

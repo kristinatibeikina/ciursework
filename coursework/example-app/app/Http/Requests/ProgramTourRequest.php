@@ -24,7 +24,6 @@ class ProgramTourRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_tour'=>'required|integer|exists:tours,id',
             'day'=>'required|string',
             'programme'=>'required|string',
         ];

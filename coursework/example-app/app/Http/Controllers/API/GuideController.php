@@ -20,7 +20,19 @@ class GuideController extends Controller
      */
     public function index()
     {
-        return GuideResource::collection(Guide::all());
+        $guides = Guide::all();
+        $result = [];
+
+        foreach ($guides as $guide) {
+            $region = Region::where('id', $guide->id_region)->first();
+            $result[] = [
+                'guide' => new GuideResource($guide),
+                'region' => $region ? $region->name : null
+            ];
+        }
+
+        return response()->json($result, 200);
+
     }
 
     /**
