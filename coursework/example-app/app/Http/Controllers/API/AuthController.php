@@ -34,10 +34,10 @@ class AuthController extends Controller
             return response(['message' => 'Не верные данные']);
         }
         $user=Auth::user();
-        $name=$user->id_role;
+        $id_role=$user->id_role;
         $accessToken = auth()->user()->createToken('authToken')->plainTextToken;
 
-        return response(['user' => new UserResource(auth()->user()), 'access_token' => $accessToken,'name'=>$name]);
+        return response(['user' => new UserResource(auth()->user()), 'access_token' => $accessToken,'id_role'=>$id_role]);
     }
 
     public function logout(Request $request)
