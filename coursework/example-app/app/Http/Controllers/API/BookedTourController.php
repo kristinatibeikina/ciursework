@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookedTourRequest;
 use App\Http\Resources\BookedTourResource;
 use App\Models\Booked_tours;
+use App\Models\Status_application;
 use App\Models\Tour;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +22,25 @@ class BookedTourController extends Controller
      */
     public function index()
     {
-        return BookedTourResource::collection(Booked_tours::all());   //вывлж всех заказов для админа
+             //вывлж всех заказов для админа
+
+        $books = Booked_tours::all();
+        $booked_user = [];
+
+        foreach ($books as $booked) {
+            $user = User::where('id', $booked->id_user)->first();
+            $tour = Tour::where('id', $booked->id_tour)->first();
+            $status_application = Status_application::where('id', $booked->id_status_application)->first();
+            $booked_user[] = [
+                'booked' => new BookedTourResource($booked),
+                'user' => $user? $user->name : null,
+                'tour' => $tour? $tour->name: null,
+                'status_application' => $status_application? $status_application->name: null,
+            ];
+        }
+
+        return response()->json($booked_user, 200);
+
     }
 
     public function index_user()
@@ -65,7 +85,10 @@ class BookedTourController extends Controller
      */
     public function show($id)
     {
-        return new BookedTourResource(Booked_tours::findOrFail($id));
+        $booked = Booked_tours::findOrFail($id);
+        $user = User::findOrFail($booked->id_user);
+        $tour = Tour::findOrFail($booked->id_tour);
+        return response()->json(['guid'=> new BookedTourResource($booked),'user' => $user->name,'tour'=>$tour->name],200);
     }
 
     /**

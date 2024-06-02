@@ -27,7 +27,7 @@ class FeedbackStoreRequest extends FormRequest
 
         return [
             'id_tour'=>'required',
-            'comment'=>'required|string|regex:/^[А-Яа-яЁё\s]+$/u',
+            'comment'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u',
             'count_stars'=>'required',
             'date_published'=>'',
             'photo' => 'array',
@@ -38,7 +38,7 @@ class FeedbackStoreRequest extends FormRequest
     {
         return [
             'required'=>'Обязательно для ввода',
-            'regex'=>'Должна использоваться кириллица',
+            'regex'=>'Должна использоваться кириллица и символы',
             'string'=>'Должен быть текст',
             'photo' => 'required|array',
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

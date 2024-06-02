@@ -25,13 +25,13 @@ class ProgramTourRequest extends FormRequest
     {
         return [
             'day'=>'required|string',
-            'programme'=>'required|string',
+            'programme'=>'required|string|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u',
         ];
     }
     public function messages()
     {
         return[
-            'regex'=>'Должна использоваться кириллица',
+            'regex'=>'Должна использоваться кириллица и символы',
             'required'=>'Обязательно для ввода',
             'string'=>'Должен быть текст',
         ];

@@ -96,7 +96,7 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     Route::post('/booked/create',[BookedTourController::class, 'store']);  //Создание заказа  *
 
-    Route::get('/booked/user',[BookedTourController::class, 'index_user']);  //Отображение заказанных туров  *
+    Route::get('/booked/user',[BookedTourController::class, 'index_user']);  //Отображение заказанных туров данного пользователя *
 
     Route::delete('/booked/delete/{id}',[BookedTourController::class, 'destroy']);   //Отказ от заявки  *
 

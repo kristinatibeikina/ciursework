@@ -77,17 +77,35 @@ class TourController extends Controller
     {
 
         $tour = new TourResource(Tour::findOrFail($id));
-        $guide=Guide::findOrFail($tour->id_guid)->name;
+        if($tour->id_guid === NULL){
+            $guide='Гид не выбран';
+        }else{
+            $guide=Guide::findOrFail($tour->id_guid)->name;
+        }
+
+        if($tour->id_housing === NULL){
+            $housing='Отель не выбран';
+        }else{
+            $housing = Housing::findOrFail($tour->id_housing)->name=='';
+        }
+        $program = Program_tour::where('id_tour',$id)->first();
+        if(!$program->day){
+            $program='Программа не создана';
+        }else{
+            $program = Program_tour::where('id_tour',$id)->first();
+        }
+
+
         $region = Region::findOrFail($tour->id_region)->name;
         $feedback = Feedback::where('id_tour',$id)->first();
-        $housing = Housing::findOrFail($tour->id_housing)->name=='';
-        $program = Program_tour::where('id_tour',$id)->first() =='';
+
+
         return response()->json(['tour'=>$tour,
             'housing' => $housing,
             'region' => $region,
             'guide' => $guide,
             'feedback'=>new FeedbackResource($feedback),
-            'program'=>new ProgramTourResource($program)],200);
+            'program'=>$program? $program->name: null],200);
 
     }
 

@@ -25,13 +25,13 @@ class GuideStoreRequest extends FormRequest
     {
         if(request()->isMethod('PUT')) {
             return [
-                'description'=>'regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
             ];
         }else if(request()->isMethod('POST')){
             return [
                 'surname' => 'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'name' => 'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
-                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'id_region'=>'required',
                 'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
             ];
@@ -43,6 +43,7 @@ class GuideStoreRequest extends FormRequest
         return [
             'required'=>'Обязательно для ввода',
             'regex'=>'Должна использоваться кириллица',
+            'name.regex'=>'Должна использоваться кириллица и символы',
             'string'=>'Должен быть текст',
             'max:2048'=>'Максимальный размер 2 МБ',
             'image'=>'Должно быть фото',

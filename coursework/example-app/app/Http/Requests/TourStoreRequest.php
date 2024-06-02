@@ -26,7 +26,7 @@ class TourStoreRequest extends FormRequest
         if(request()->isMethod('POST')){
             return [
                 'name'=>'required|unique:tours,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
-                'description'=>'required|string|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|string|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'price'=>'',
                 'date_start'=>'required',
                 'date_end'=>'required',
@@ -60,6 +60,7 @@ class TourStoreRequest extends FormRequest
             'max:2048'=>'Максимальный размер 2 МБ',
             'image'=>'Должно быть фото',
             'mimes:jpeg,png,jpg,gif,svg'=>'Принимаемые форматы jpeg,png,jpg,gif,svg',
+            'description.regex'=>'Должна использоваться кириллица и символы',
         ];
     }
 }

@@ -33,10 +33,11 @@ class AuthController extends Controller
         if (!Auth::attempt($request->validated())) {
             return response(['message' => 'Не верные данные']);
         }
-
+        $user=Auth::user();
+        $name=$user->id_role;
         $accessToken = auth()->user()->createToken('authToken')->plainTextToken;
 
-        return response(['user' => new UserResource(auth()->user()), 'access_token' => $accessToken]);
+        return response(['user' => new UserResource(auth()->user()), 'access_token' => $accessToken,'name'=>$name]);
     }
 
     public function logout(Request $request)

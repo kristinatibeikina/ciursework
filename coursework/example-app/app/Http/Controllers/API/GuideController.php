@@ -68,7 +68,7 @@ class GuideController extends Controller
     public function show($id)
     {
 
-        $guid = new GuideResource(Guide::findOrFail($id));
+        $guid = Guide::findOrFail($id);
         $region = Region::findOrFail($guid->id_region);
         $tour= Tour::where('id_guid',$id)->pluck('name');
         return response()->json(['guid'=>new GuideResource($guid),'name_region' => $region->name,'tour'=>$tour],200);

@@ -31,7 +31,7 @@ class HousingStoreRequest extends FormRequest
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'id_region'=>'required',
-                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
             ];
         }else{
             return [
@@ -40,7 +40,7 @@ class HousingStoreRequest extends FormRequest
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
                 'id_region'=>'required',
-                'description'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'description'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
             ];
         }
     }
@@ -49,6 +49,7 @@ class HousingStoreRequest extends FormRequest
         return [
             'required'=>'Обязательно для ввода',
             'regex'=>'Должна использоваться кириллица',
+            'description.regex'=>'Должна использоваться кириллица и символы',
             'unique'=>'Значение должно быть уникально',
             'string'=>'Должен быть текст',
             'image'=>'Должна быть фотография',
