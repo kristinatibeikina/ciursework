@@ -19,13 +19,10 @@ class BookedTourResource extends JsonResource
             'count_adults'=>$this->count_adults,
             'wishes'=>$this->wishes,
             'response'=>$this->response,
-            'id_status_application'=>$this->id_status_application,
-
             'tel'=>$this->tel,
             'email'=>$this->email,
             'date_application'=>$this->date_application,
             'price_end'=>$this->price_end,
-            'id_employees'=>$this->id_employees
         ];
     }
 }

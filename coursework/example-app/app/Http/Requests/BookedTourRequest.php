@@ -26,14 +26,15 @@ class BookedTourRequest extends FormRequest
         if(request()->isMethod('PUT')) {
             return [
                 'id_status_application'=>'required',
+                'response'=>'regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u'
             ];
         }
         return [
             'id_tour'=>'required',
             'count_children'=>'required|numeric',
             'count_adults'=>'required|numeric',
-            'wishes'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
-            'response'=>'',
+            'wishes'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
+            'response'=>'regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u',
             'id_status_application'=>'required',
             'id_user'=>'',
             'tel'=>['required', 'regex:/^(7|8)\d{10}$/'],
@@ -44,7 +45,8 @@ class BookedTourRequest extends FormRequest
     public function messages()
     {
         return[
-            'wishes.regex'=>'Должна использоваться кириллица',
+            'response.regex'=>'Должна использоваться кириллица и символы',
+            'wishes.regex'=>'Должна использоваться кириллица и символы',
             'required'=>'Обязательно для ввода',
             'unique'=>'Значение должно быть уникально',
             'string'=>'Должен быть текст',

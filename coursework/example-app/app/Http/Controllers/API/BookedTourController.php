@@ -30,13 +30,27 @@ class BookedTourController extends Controller
         foreach ($books as $booked) {
             $user = User::where('id', $booked->id_user)->first();
             $tour = Tour::where('id', $booked->id_tour)->first();
+            $employees = User::where('id', $booked->id_employees)->first();
             $status_application = Status_application::where('id', $booked->id_status_application)->first();
-            $booked_user[] = [
-                'booked' => new BookedTourResource($booked),
-                'user' => $user? $user->name : null,
-                'tour' => $tour? $tour->name: null,
-                'status_application' => $status_application? $status_application->name: null,
-            ];
+            if($status_application->name == NULL){
+                $booked_user[] = [
+                    'booked' => new BookedTourResource($booked),
+                    'user' => $user? $user->name : null,
+                    'surname' => $user? $user->surname : null,
+                    'tour' => $tour? $tour->name: null,
+                    'employees' => $employees? $employees->name: null,
+                    'status_application' => $status_application? $status_application->name: null,
+                ];
+            }else{
+                $booked_user[] = [
+                    'booked' => new BookedTourResource($booked),
+                    'user' => $user? $user->name : null,
+                    'surname' => $user? $user->surname : null,
+                    'tour' => $tour? $tour->name: null,
+                    'status_application' => $status_application? $status_application->name: null,
+                ];
+            }
+
         }
 
         return response()->json($booked_user, 200);
@@ -88,7 +102,13 @@ class BookedTourController extends Controller
         $booked = Booked_tours::findOrFail($id);
         $user = User::findOrFail($booked->id_user);
         $tour = Tour::findOrFail($booked->id_tour);
-        return response()->json(['guid'=> new BookedTourResource($booked),'user' => $user->name,'tour'=>$tour->name],200);
+        $status_application = Status_application::findOrFail($booked->id_status_application);
+        $employees = User::findOrFail($booked->id_employees);
+        return response()->json(['guid'=> new BookedTourResource($booked),'user' => $user->name,
+            'tour'=>$tour->name,
+            'status_application'=>$status_application->name,
+            'employees'=> $employees->name,
+            'surname'=>$user->surname],200);
     }
 
     /**
