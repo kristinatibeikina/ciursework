@@ -88,7 +88,6 @@ class BookedTourController extends Controller
         $booked = Booked_tours::findOrFail($id);
         $user = User::findOrFail($booked->id_user);
         $tour = Tour::findOrFail($booked->id_tour);
-        $status_application = Status_application::where('id', $booked->id_status_application)->first
         return response()->json(['guid'=> new BookedTourResource($booked),'user' => $user->name,'tour'=>$tour->name],200);
     }
 
