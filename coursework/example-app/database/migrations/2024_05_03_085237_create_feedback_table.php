@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->integer('count_stars');
+            $table->integer('count_stars')->default(0);
             $table->text('comment');
             $table->date('date_published');
             $table->integer('id_user');

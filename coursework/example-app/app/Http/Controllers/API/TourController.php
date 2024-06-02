@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TourStoreRequest;
+use App\Http\Resources\FeedbackResource;
 use App\Http\Resources\ProgramTourResource;
 use App\Http\Resources\TourResource;
 use App\Models\Feedback;
@@ -76,12 +77,17 @@ class TourController extends Controller
     {
 
         $tour = new TourResource(Tour::findOrFail($id));
+        $guide=Guide::findOrFail($tour->id_guid)->name;
         $region = Region::findOrFail($tour->id_region)->name;
-        $guide = Guide::findOrFail($tour->id_guid)->name;
-        $housing = Housing::findOrFail($tour->id_housing)->name;
-        $feedback = Feedback::where('id_tour',$id)->get();
-        $program = Program_tour::where('id_tour',$id)->first();
-        return response()->json(['tour'=>$tour,'housing' => $housing,'region' => $region,'guide' => $guide,'feedback'=>$feedback,'program'=>new ProgramTourResource($program)],200);
+        $feedback = Feedback::where('id_tour',$id)->first();
+        $housing = Housing::findOrFail($tour->id_housing)->name=='';
+        $program = Program_tour::where('id_tour',$id)->first() =='';
+        return response()->json(['tour'=>$tour,
+            'housing' => $housing,
+            'region' => $region,
+            'guide' => $guide,
+            'feedback'=>new FeedbackResource($feedback),
+            'program'=>new ProgramTourResource($program)],200);
 
     }
 

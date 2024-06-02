@@ -20,5 +20,6 @@ class FeedbackResource extends JsonResource
             'date_published'=>$this->date_published,
             'photo'=>$this->photo
         ];
+
     }
 }

@@ -40,7 +40,7 @@ Route::post('/login',[AuthController::class, 'login']);
 //Tour
 Route::get('/tours',[TourController::class, 'index'])->name('index'); //Вывод всех туров  *
 
-Route::get('/tour/{id}',[TourController::class, 'show']); //Вывод одного тура *
+Route::get('/tour/{id}',[TourController::class, 'show'])->name('show'); //Вывод одного тура *
 
 Route::get('/tours/search',[TourController::class, 'search']);  //Поиск по названию тура (в форме передовать id= 'query' );  *
 

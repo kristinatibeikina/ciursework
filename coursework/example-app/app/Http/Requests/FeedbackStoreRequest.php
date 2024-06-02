@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class FeedbackStoreRequest extends FormRequest
 {
@@ -21,8 +22,9 @@ class FeedbackStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
+
         return [
             'id_tour'=>'required',
             'comment'=>'required|string|regex:/^[А-Яа-яЁё\s]+$/u',
