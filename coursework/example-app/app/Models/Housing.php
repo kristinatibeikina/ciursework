@@ -10,6 +10,7 @@ class Housing extends Model
     use HasFactory;
 
     protected $fillable=[
+        'id',
         'name',
         'photo',
         'address',

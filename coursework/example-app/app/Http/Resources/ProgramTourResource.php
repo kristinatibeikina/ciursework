@@ -15,6 +15,7 @@ class ProgramTourResource extends JsonResource
     public function toArray($request)
     {
         return[
+            'id',
             'day'=>$this->day,
             'programme'=>$this->programme,
         ];

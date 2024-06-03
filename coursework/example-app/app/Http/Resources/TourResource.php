@@ -17,6 +17,7 @@ class TourResource extends JsonResource
     {
         if ($request->route()->getName() === 'index') {
             return [
+                'id'=>$this->id,
                 'name' => $this->name,
                 'price' => $this->price,
                 'date_start' => $this->date_start,
@@ -25,6 +26,7 @@ class TourResource extends JsonResource
             ];
         }
             return [
+                'id'=>$this->id,
                 'name'=>$this->name,
                 'description'=>$this->description,
                 'price'=>$this->price,

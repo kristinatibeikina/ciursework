@@ -32,14 +32,15 @@ class BookedTourController extends Controller
             $tour = Tour::where('id', $booked->id_tour)->first();
             $employees = User::where('id', $booked->id_employees)->first();
             $status_application = Status_application::where('id', $booked->id_status_application)->first();
-            if($status_application->name == NULL){
+            $status_application=$status_application? $status_application->name: null;
+            if($status_application != null){
                 $booked_user[] = [
                     'booked' => new BookedTourResource($booked),
                     'user' => $user? $user->name : null,
                     'surname' => $user? $user->surname : null,
                     'tour' => $tour? $tour->name: null,
                     'employees' => $employees? $employees->name: null,
-                    'status_application' => $status_application? $status_application->name: null,
+                    'status_application' => $status_application,
                 ];
             }else{
                 $booked_user[] = [
@@ -47,7 +48,6 @@ class BookedTourController extends Controller
                     'user' => $user? $user->name : null,
                     'surname' => $user? $user->surname : null,
                     'tour' => $tour? $tour->name: null,
-                    'status_application' => $status_application? $status_application->name: null,
                 ];
             }
 

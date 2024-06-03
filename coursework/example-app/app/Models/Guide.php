@@ -10,9 +10,10 @@ class Guide extends Model
     use HasFactory;
 
     protected $fillable=[
-      'name',
-      'surname',
-      'description',
+        'id',
+        'name',
+        'surname',
+        'description',
         'photo',
         'id_region'
     ];

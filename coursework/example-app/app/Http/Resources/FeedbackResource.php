@@ -15,6 +15,7 @@ class FeedbackResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'count_stars'=>$this->count_stars,
             'comment'=>$this->comment,
             'date_published'=>$this->date_published,

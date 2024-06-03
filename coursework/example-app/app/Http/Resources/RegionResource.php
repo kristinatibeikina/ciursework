@@ -17,12 +17,14 @@ class RegionResource extends JsonResource
 
         if ($request->route()->getName() === 'index') {
             return [
+                'id'=>$this->id,
                 'name' => $this->name,
                 'photo' => $this->photo,
 
             ];
         }
         return [
+            'id'=>$this->id,
             'name' => $this->name,
             'photo' => $this->photo,
             'list'=>TourResource::collection($this->list),

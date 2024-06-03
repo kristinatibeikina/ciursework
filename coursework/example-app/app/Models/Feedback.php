@@ -10,6 +10,7 @@ class Feedback extends Model
     use HasFactory;
 
     protected $fillable=[
+        'id',
         'count_stars',
         'comment',
         'date_published',

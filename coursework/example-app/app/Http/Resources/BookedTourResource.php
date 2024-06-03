@@ -15,6 +15,7 @@ class BookedTourResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'count_children'=>$this->count_children,
             'count_adults'=>$this->count_adults,
             'wishes'=>$this->wishes,

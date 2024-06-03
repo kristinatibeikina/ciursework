@@ -10,6 +10,7 @@ class Program_tour extends Model
     use HasFactory;
 
     protected $fillable=[
+        'id',
         'id_tour',
         'day',
         'programme',

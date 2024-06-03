@@ -16,6 +16,7 @@ class GuideResource extends JsonResource
     {
         if(request()->isMethod('GET')) {
             return [
+                'id'=>$this->id,
                 'name'=>$this->name,
                 'surname'=>$this->surname,
                 'description'=>$this->description,
@@ -23,6 +24,7 @@ class GuideResource extends JsonResource
             ];
         }
         return[
+            'id'=>$this->id,
             'name'=>$this->name,
             'surname'=>$this->surname,
             'description'=>$this->description,

@@ -10,6 +10,7 @@ class Booked_tours extends Model
     use HasFactory;
 
     public $fillable=[
+        'id',
         'id_tour',
         'count_children',
         'count_adults',
