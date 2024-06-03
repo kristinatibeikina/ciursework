@@ -31,11 +31,11 @@ class RegionController extends Controller
         $image = $request->file('photo');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('photos'), $imageName);
-
+        $photo= 'public/photos/' . $imageName;
 
         $region = Region::create($request->validated());
 
-        $region->photo = $imageName;
+        $region->photo = $photo;
 
         $region->save();
 

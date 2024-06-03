@@ -46,11 +46,11 @@ class GuideController extends Controller
         $image = $request->file('photo');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('photos'), $imageName);
-
+        $photo= 'public/photos/' . $imageName;
 
         $guid = Guide::create($request->validated());
 
-        $guid->photo = $imageName;
+        $guid->photo = $photo;
 
         $guid->save();
 

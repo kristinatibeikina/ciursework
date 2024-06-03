@@ -37,9 +37,9 @@ class HousingTourController extends Controller
         if ($request->hasFile('photo')) {
             foreach ($request->file('photo') as $image) {
                 if (is_file($image)) { // Проверяем, что $image - это файл
-                    $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('photos'), $imageName);
-                    $photos[] = 'photos/' . $imageName; // Сохраняем путь к файлу
+                    $photos= 'public/photos/' . $imageName; // Сохраняем путь к файлу
                 }
             }
         }

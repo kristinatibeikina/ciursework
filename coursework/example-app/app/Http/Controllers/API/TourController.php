@@ -53,12 +53,12 @@ class TourController extends Controller
         $image = $request->file('photo');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('photos'), $imageName);
-
+        $photo= 'public/photos/' . $imageName;
 
         $tour = Tour::create($request->validated());
 
 
-        $tour->photo = $imageName;
+        $tour->photo = $photo;
 
         $tour->save();
 
