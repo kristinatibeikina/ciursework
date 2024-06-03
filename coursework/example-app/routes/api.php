@@ -171,6 +171,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
 
     //Booked_tours
+    Route::get('/booked/user',[BookedTourController::class, 'index_user']);  //Отображение заказанных туров данного пользователя *
 
     Route::get('/booked',[BookedTourController::class, 'index']);  //Отображение заказанных туров  *
 

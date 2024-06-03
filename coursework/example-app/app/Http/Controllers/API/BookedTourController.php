@@ -30,25 +30,19 @@ class BookedTourController extends Controller
         foreach ($books as $booked) {
             $user = User::where('id', $booked->id_user)->first();
             $tour = Tour::where('id', $booked->id_tour)->first();
-            $employees = User::where('id', $booked->id_employees)->first();
             $status_application = Status_application::where('id', $booked->id_status_application)->first();
             $status_application=$status_application? $status_application->name: null;
             if($status_application != null){
                 $booked_user[] = [
-                    'booked' => new BookedTourResource($booked),
+                    'booked' => $booked->id,
                     'user' => $user? $user->name : null,
                     'surname' => $user? $user->surname : null,
                     'tour' => $tour? $tour->name: null,
-                    'employees' => $employees? $employees->name: null,
+                    'date_start' => $tour? $tour->date_start: null,
+                    'date_end' => $tour? $tour->date_end: null,
                     'status_application' => $status_application,
                 ];
-            }else{
-                $booked_user[] = [
-                    'booked' => new BookedTourResource($booked),
-                    'user' => $user? $user->name : null,
-                    'surname' => $user? $user->surname : null,
-                    'tour' => $tour? $tour->name: null,
-                ];
+
             }
 
         }
@@ -59,11 +53,44 @@ class BookedTourController extends Controller
 
     public function index_user()
     {
-
+        $result = [];
         $user = Auth::user();
         $id_user=$user->id;
+        $books = Booked_tours::where('id_user',$id_user)->get();
+        if(is_null($books)){
+            return response()->json(['message'=>'У вас нет заказов'],200);
+        }
+        foreach ($books as $booked) {
+            $tour = Tour::where('id', $booked->id_region)->first();
+            $user = User::where('id', $booked->id_user)->first();
+            if(!$booked->id_employees){
+                $result[] = [
+                    'booked'=>BookedTourResource::collection($books),
+                    'user_name'=>$user ? $user->name : null,
+                    'user_surname'=>$user ? $user->surname : null,
+                    'tour_name' => $tour ? $tour ->name : null,
+                    'tour_end' => $tour ? $tour ->date_end : null,
+                    'date_start' => $tour ? $tour ->date_start : null,
 
-        return BookedTourResource::collection(Booked_tours::where('id_user',$id_user)->get());   //вывлж всех заказов для админа
+                ];
+            }else{
+                $employees=User::where('id',$booked ->id_employees)->first();
+                $result[] = [
+                    'booked'=>BookedTourResource::collection($books),
+                    'user_name'=>$user ? $user->name : null,
+                    'user_surname'=>$user ? $user->surname : null,
+                    'tour_name' => $tour ? $tour ->name : null,
+                    'tour_end' => $tour ? $tour ->date_end : null,
+                    'date_start' => $tour ? $tour ->date_start : null,
+                    'employees' => $employees ? $employees ->name : null,
+                    'response' => $booked ? $booked->response : null,
+                    ];
+
+            }
+
+        }
+
+        return response()->json($result,200);   //вывлж всех заказов для админа
     }
 
     /**

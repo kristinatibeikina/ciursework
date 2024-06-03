@@ -24,6 +24,7 @@ class BookedTourResource extends JsonResource
             'email'=>$this->email,
             'date_application'=>$this->date_application,
             'price_end'=>$this->price_end,
+            'id_tour'=>$this->id_tour,
         ];
     }
 }

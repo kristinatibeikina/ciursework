@@ -25,10 +25,13 @@ class BookedTourObserver
      */
     public function updating(Booked_tours $booked_tours)
     {
-        $admin=$booked_tours->id_employees;
+        $admin = $booked_tours->id_employees;
+
         if ($admin) {
-            throw new \Exception("Нельзя зменить статус заявки когда уже одобрено");
+            throw new \Exception("Нельзя изменить статус заявки, когда она уже одобрена.");
         }
+
+
     }
 
     /**
