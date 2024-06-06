@@ -102,7 +102,7 @@ Route::middleware(['auth:sanctum', 'id_role:2'])->group(function () {
 
     //Feedback
 
-    Route::post('/feedback/create',[FeedbackController::class, 'store']);  //Создание нового комментария
+    Route::post('/feedback/create/{id_tour}',[FeedbackController::class, 'store']);  //Создание нового комментария
 
     //User
 
@@ -127,7 +127,6 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
 
 
-
     //email
 
     Route::post('/email',[EmailController::class, 'store']);  //Подтверждение почты *
@@ -142,6 +141,8 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     Route::post('/region/create',[RegionController::class, 'store']);  //Создание нового города
 
     //Housing
+
+    Route::get('/housing/admin/{id}',[HousingTourController::class, 'show_admin']); //Вывод одного отеля  *
 
     Route::post('/housing/photo',[HousingTourController::class, 'store']);  //Создание отеля *
 

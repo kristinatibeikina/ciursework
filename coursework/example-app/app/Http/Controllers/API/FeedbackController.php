@@ -28,7 +28,7 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FeedbackStoreRequest $request)
+    public function store(FeedbackStoreRequest $request, $id_tour)
     {
         $validated = $request->validated();
         $photos = [];
@@ -46,7 +46,7 @@ class FeedbackController extends Controller
 
         $user = Auth::user();
         $feedback = new Feedback();
-        $feedback->id_tour = $validated['id_tour'];
+        $feedback->id_tour = $id_tour;
         $feedback->photo = json_encode($photos);  // Сохранение JSON строки с путями к фото
         $feedback->comment = $validated['comment'];
         $feedback->count_stars = $validated['count_stars'];

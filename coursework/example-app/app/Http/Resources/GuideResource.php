@@ -20,7 +20,7 @@ class GuideResource extends JsonResource
                 'name'=>$this->name,
                 'surname'=>$this->surname,
                 'description'=>$this->description,
-                'photo'=>$this->photo,
+                'photo'=>asset('/storage/' . $this->photo),
             ];
         }
         return[
@@ -28,7 +28,7 @@ class GuideResource extends JsonResource
             'name'=>$this->name,
             'surname'=>$this->surname,
             'description'=>$this->description,
-            'photo'=>$this->photo,
+            'photo'=>asset('/storage/' . $this->photo),
             'id_region'=>$this->id_region,
         ];
     }

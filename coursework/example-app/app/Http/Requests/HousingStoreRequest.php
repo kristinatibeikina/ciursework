@@ -26,19 +26,19 @@ class HousingStoreRequest extends FormRequest
 
         if(request()->isMethod('POST')){
             return [
-                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'photo' => 'array',
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'address'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'id_region'=>'required',
                 'description'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
             ];
         }else{
             return [
-                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'name'=>'required|unique:housings,name|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u',
                 'photo' => 'array',
                 'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'address'=>'required|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'address'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'id_region'=>'required',
                 'description'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
             ];
@@ -48,8 +48,7 @@ class HousingStoreRequest extends FormRequest
     {
         return [
             'required'=>'Обязательно для ввода',
-            'regex'=>'Должна использоваться кириллица',
-            'description.regex'=>'Должна использоваться кириллица и символы',
+            'regex'=>'Должна использоваться кириллица и символы',
             'unique'=>'Значение должно быть уникально',
             'string'=>'Должен быть текст',
             'image'=>'Должна быть фотография',

@@ -25,7 +25,7 @@ class RegionStoreRequest extends FormRequest
     {
 
             return [
-                'name' => 'required|unique:regions|regex:/^[А-Яа-яЁё\s]+$/u|string',
+                'name' => 'required|unique:regions|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u|string',
                 'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ];
 
@@ -35,7 +35,7 @@ class RegionStoreRequest extends FormRequest
     {
         return[
             'required'=>'Обязательно для ввода',
-            'regex'=>'Должна использоваться кириллица',
+            'regex'=>'Должна использоваться кириллица и символы',
             'unique'=>'Значение должно быть уникально',
             'string'=>'Должен быть текст',
             'max:2048'=>'Максимальный размер 2 МБ',

@@ -26,7 +26,7 @@ class FeedbackStoreRequest extends FormRequest
     {
 
         return [
-            'id_tour'=>'required',
+            'id_tour'=>'',
             'comment'=>'required|regex:/^[А-Яа-яЁё,\_.,!@#$%^&*()+=\[\]\{\}\:;"<>,.?\-\s]+$/u',
             'count_stars'=>'required',
             'date_published'=>'',

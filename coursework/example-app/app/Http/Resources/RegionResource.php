@@ -19,14 +19,14 @@ class RegionResource extends JsonResource
             return [
                 'id'=>$this->id,
                 'name' => $this->name,
-                'photo' => $this->photo,
+                'photo' => asset('/storage/' . $this->photo),
 
             ];
         }
         return [
             'id'=>$this->id,
             'name' => $this->name,
-            'photo' => $this->photo,
+            'photo' => asset('/storage/' . $this->photo),
             'list'=>TourResource::collection($this->list),
         ];
 

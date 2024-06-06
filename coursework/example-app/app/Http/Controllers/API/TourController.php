@@ -51,14 +51,12 @@ class TourController extends Controller
     {
 
         $image = $request->file('photo');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('photos'), $imageName);
-        $photo= 'public/photos/' . $imageName;
+        $path = $image->store('photos', 'public');
 
         $tour = Tour::create($request->validated());
 
 
-        $tour->photo = $photo;
+        $tour->photo = $path;
 
         $tour->save();
 
@@ -88,9 +86,10 @@ class TourController extends Controller
         }else{
             $housing = Housing::findOrFail($tour->id_housing)->name=='';
         }
-        $program = Program_tour::where('id_tour',$id)->first();
-        if(!$program->day){
-            $program='Программа не создана';
+
+        $program = Program_tour::where('id_tour', $id)->first();
+        if (!$program || !$program->day) {
+            $program = 'Программа не создана';
         }else{
             $program = Program_tour::where('id_tour',$id)->first();
         }

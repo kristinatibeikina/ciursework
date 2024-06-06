@@ -68,6 +68,13 @@ class HousingTourController extends Controller
         return response()->json(['housing'=>new HousingResource($housing),'name_region' => $region->name],200);
     }
 
+    public function show_admin($id)
+    {
+        $housing = new HousingResource(Housing::findOrFail($id));
+        $region = Region::findOrFail($housing->id_region);
+        return response()->json(['housing'=>new HousingResource($housing),'name_region' => $region->name],200);
+    }
+
     /**
      * Update the specified resource in storage.
      *

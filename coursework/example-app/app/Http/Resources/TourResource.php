@@ -22,7 +22,7 @@ class TourResource extends JsonResource
                 'price' => $this->price,
                 'date_start' => $this->date_start,
                 'date_end' => $this->date_end,
-                'photo' => $this->photo,
+                'photo' => asset('/storage/' . $this->photo),
             ];
         }
             return [
