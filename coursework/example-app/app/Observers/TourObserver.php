@@ -34,22 +34,7 @@ class TourObserver
      * @param  \App\Models\Tour  $tour
      * @return void
      */
-    public function updating(Tour $tour)
-    {
-        $bookedTours = Booked_tours::where('id_tour', $tour->id)->exists();
-        if ($bookedTours) {
 
-            throw new \Exception("Нельзя изменить тур, который уже забронирован.");
-        }
-        $tour_guid = Tour::where('id_guid',$tour->id_guid)->first();
-        if($tour_guid){
-            throw new \Exception("Нельзя поставить данного гида на тур, он уже участвует в другом.");
-        }
-        $guid = Guide::where('id',$tour->id_guid)->first();
-        if($tour->id_region != $guid->id_region){
-            throw new \Exception("Выбранный гид не относится к данному региону.");
-        }
-    }
 
     /**
      * Handle the Tour "deleted" event.
@@ -71,7 +56,24 @@ class TourObserver
 
     }
 
+    public function updating(Tour $tour)
+    {
+        $bookedTours = Booked_tours::where('id_tour', $tour->id)->exists();
+        if ($bookedTours) {
 
+            throw new \Exception("Нельзя изменить тур, который уже забронирован.");
+        }
+        $tour_guid = Tour::where('id_guid',$tour->id_guid)->first();
+        if($tour_guid ){
+            throw new \Exception("Нельзя поставить данного гида на тур, он уже участвует в другом.");
+        }
+        $guid = Guide::where('id',$tour->id_guid)->first();
+        if($tour->id_region != $guid->id_region){
+            throw new \Exception("Выбранный гид не относится к данному региону.");
+        }
+
+
+    }
 
     /**
      * Handle the Tour "restored" event.

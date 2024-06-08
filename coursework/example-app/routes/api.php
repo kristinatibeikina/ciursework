@@ -5,6 +5,7 @@ use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\HousingTourController;
 use App\Http\Controllers\API\NewPasswordController;
 use App\Http\Controllers\API\ProgrammTourController;
+use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\TourController;
 use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\GuideController;
@@ -122,9 +123,9 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
 
     //Password
 
-    Route::post('/password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений
+    Route::post('/reset-password', [PasswordController::class, 'store'])->middleware(['guest']);  //Отправка сообщений на почту
 
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
+    Route::post('/password-recovery', [NewPasswordController::class, 'store'])->middleware(['guest'])->name('password.reset');  //Смена пароля
 
 
     //email
@@ -191,4 +192,7 @@ Route::middleware(['auth:sanctum', 'id_role:1'])->group(function () {
     //Program
     Route::post('/program/create',[ProgrammTourController::class, 'store']);  //Создание программы тура
 
+
+    // Status
+    Route::get('/status',[StatusController::class, 'index']);  //Отображение заказанных туров  *
 });

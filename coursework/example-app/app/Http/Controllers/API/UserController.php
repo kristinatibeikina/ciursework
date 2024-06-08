@@ -72,7 +72,7 @@ class UserController extends Controller
 
         $user->update($request->all());
 
-        return response()->json(['message' => 'Данные пользователя были изменены', new UserResource($user)],200);
+        return response()->json(['message' => 'Данные пользователя были изменены', 'user'=> new UserResource($user)],200);
 
     }
 

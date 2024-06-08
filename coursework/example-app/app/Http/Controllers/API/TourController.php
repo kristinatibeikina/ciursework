@@ -32,9 +32,11 @@ class TourController extends Controller
 
         foreach ($tours as $tour) {
             $region = Region::where('id', $tour->id_region)->first();
+            $status = Status::where('id', $tour->id_status)->first();
             $result[] = [
                 'tour' => new TourResource($tour),
-                'region' => $region ? $region->name : null
+                'region' => $region ? $region->name : null,
+                'status' => $status ? $status->name : 'Статус не определен'
             ];
         }
 
@@ -61,7 +63,7 @@ class TourController extends Controller
         $tour->save();
 
 
-        return response()->json(['message' => 'Отель был успешно создан'], 200);
+        return response()->json(['message' => 'Тур был успешно создан'], 200);
     }
 
 
@@ -73,39 +75,57 @@ class TourController extends Controller
      */
     public function show($id)
     {
-
-        $tour = new TourResource(Tour::findOrFail($id));
-        if($tour->id_guid === NULL){
-            $guide='Гид не выбран';
-        }else{
-            $guide=Guide::findOrFail($tour->id_guid)->name;
+        // Получаем тур как объект
+        $tour = Tour::find($id);
+        $status_tour = Status::where('id', $tour->id_status)->first();
+        $status= $status_tour ? $status_tour->name : null;
+        // Проверяем, найден ли тур
+        if (!$tour) {
+            return response()->json(['error' => 'Тур не найден'], 404);
         }
 
-        if($tour->id_housing === NULL){
-            $housing='Отель не выбран';
-        }else{
-            $housing = Housing::findOrFail($tour->id_housing)->name=='';
+        // Проверка наличия гида
+        if ($tour->id_guid === null) {
+            $guide = 'Гид не выбран';
+        } else {
+            $guide = Guide::find($tour->id_guid);
+            $guide = $guide ? $guide->name : 'Гид не найден';
         }
 
+        // Проверка наличия отеля
+        if ($tour->id_housing === null) {
+            $housing = 'Отель не выбран';
+        } else {
+            $housing = Housing::find($tour->id_housing);
+            $housing = $housing ? $housing->name : 'Отель не найден';
+        }
+
+        // Проверка программы тура
         $program = Program_tour::where('id_tour', $id)->first();
         if (!$program || !$program->day) {
             $program = 'Программа не создана';
-        }else{
-            $program = Program_tour::where('id_tour',$id)->first();
+        } else {
+            $program = $program->name; // Предполагается, что у Program_tour есть свойство name
         }
 
+        // Получение региона
+        $region = Region::find($tour->id_region);
+        $region = $region ? $region->name : 'Регион не найден';
 
-        $region = Region::findOrFail($tour->id_region)->name;
-        $feedback = Feedback::where('id_tour',$id)->first();
+        // Получение отзывов
+        $feedback = Feedback::where('id_tour', $id)->first();
+        $feedbackResource = $feedback ? new FeedbackResource($feedback) : null;
 
-
-        return response()->json(['tour'=>$tour,
+        // Возвращаем ответ
+        return response()->json([
+            'tour' => new TourResource($tour),
             'housing' => $housing,
             'region' => $region,
             'guide' => $guide,
-            'feedback'=>new FeedbackResource($feedback),
-            'program'=>$program? $program->name: null],200);
-
+            'feedback' => $feedbackResource,
+            'program' => $program,
+            'status' => $status
+        ], 200);
     }
 
     /**
